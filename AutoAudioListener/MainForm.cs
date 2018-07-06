@@ -176,7 +176,7 @@ namespace AutoAudioListener {
             startStopListeningButton.Refresh();
             SetUpAudioListener();
             MainAudioListener.StartListening();
-            LogEventHistory("Listening started");
+            LogEventHistory("Listening started.");
             UpdateStatusBar("Started Listening...");
         }
 
@@ -184,7 +184,7 @@ namespace AutoAudioListener {
             MainAudioListener.StopListening();
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
             startStopListeningButton.Text = "Start Listening";
-            LogEventHistory($"Listening stopped");
+            LogEventHistory($"Listening stopped.");
             UpdateStatusBar("Listening stopped.");
         }
 
@@ -212,7 +212,7 @@ namespace AutoAudioListener {
         }
 
         private void MainAudioListener_AudioActivated(object sender, EventArgs e) {
-            LogEventHistory($"Audio Activated at source volume {MainAudioListener.CurrentSourceVolume}");
+            LogEventHistory($"Audio Activated at source volume {MainAudioListener.CurrentSourceVolume}.");
             UpdateStatusBar("Audio Activated.");
         }
 
@@ -232,7 +232,7 @@ namespace AutoAudioListener {
         }
 
         private void MainAudioListener_BufferVolumeTriggered(object sender, EventArgs e) {
-            LogEventHistory($"Buffer volume triggered at source volume {MainAudioListener.CurrentSourceVolume}. Fading output volume to {MainAudioListener.CurrentOutputVolume}");
+            LogEventHistory($"Buffer volume triggered at source volume {MainAudioListener.CurrentSourceVolume}. Fading output volume to {MainAudioListener.CurrentOutputVolume}.");
         }
 
         private void MainAudioListener_ListeningStopped(object sender, NAudio.Wave.StoppedEventArgs e) {

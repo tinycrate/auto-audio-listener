@@ -16,7 +16,7 @@ namespace AutoAudioListener.Utils.Debug {
         public string TimestampFormat { get; set; }
 
         public override void Add(string message) {
-            Messages.Add($"[{DateTime.Now.ToString(TimestampFormat)}]: {message}.");
+            Messages.Add($"[{DateTime.Now.ToString(TimestampFormat)}]: {message}");
         }
 
     }
