@@ -188,6 +188,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppSettings\CustomProfile.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Utils\AutoStartup.cs" />
     <Compile Include="Utils\Debug\SimpleMessageLogger.cs" />
     <Compile Include="Utils\Debug\TimestampMessageLogger.cs" />
     <EmbeddedResource Include="EventLogsForm.resx">

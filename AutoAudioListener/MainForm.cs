@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
 using AutoAudioListener.Audio;
+using AutoAudioListener.Utils;
 using AutoAudioListener.Utils.Debug;
 using AutoAudioListener.Controls;
 using AutoAudioListener.AppSettings;
@@ -38,6 +39,7 @@ namespace AutoAudioListener {
             RestoreFormPositionFromPreferences();
             RestoreSelectedProfileFromPreferences();
             RestoreSelectedDevicesFromProfile();
+            if (AutoStartup.IsLaunchedFromAutostart) SetupAutostart();
         }
 
         private void RestoreFormPositionFromPreferences() {
@@ -79,6 +81,12 @@ namespace AutoAudioListener {
             int outputDeviceIndex = outputDevices.FindIndex(device => device.ID == outputDeviceID);
             if (inputDeviceIndex >= 0) inputDeviceComboBox.SelectedIndex = inputDeviceIndex;
             if (outputDeviceIndex >= 0) outputDeviceComboBox.SelectedIndex = outputDeviceIndex;
+        }
+
+        private void SetupAutostart() {
+            LogEventHistory("App successfully launched at Windows startup!");
+            this.WindowState = FormWindowState.Minimized;
+            StartListening();
         }
 
         private void SaveListenerFormatToProfile(ActiveAudioListenerFormat format) {
@@ -136,6 +144,7 @@ namespace AutoAudioListener {
         private void BindDataSources() {
             BindIODevicesList();
             BindProfileList();
+            BindRunOnStartupSetting();
         }
 
         private void BindIODevicesList() {
@@ -156,6 +165,10 @@ namespace AutoAudioListener {
             profileComboBox.DataSource = null;
             profileComboBox.DataSource = CustomProfile.EnumerateProfiles().ToList();
             profileComboBox.DisplayMember = "Name";
+        }
+
+        private void BindRunOnStartupSetting() {
+            runAtStartupCheckBox.Checked = AutoStartup.Enabled;
         }
 
         private void StartListening() {
@@ -255,6 +268,10 @@ namespace AutoAudioListener {
 
         private void viewLogsButton_Click(object sender, EventArgs e) {
             OpenEventLogsForm();
+        }
+
+        private void runAtStartupCheckBox_CheckedChanged(object sender, EventArgs e) {
+            AutoStartup.Enabled = runAtStartupCheckBox.Checked;
         }
 
         private void profileComboBox_SelectionChangeCommitted(object sender, EventArgs e) {
