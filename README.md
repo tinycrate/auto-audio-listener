@@ -9,7 +9,7 @@ A simple tool to "listen" to an audio device, similar to Windows "Listen to this
 - Fade in when the input audio becomes alive again
 - Decent looking volume meter
 - Customizable settings (Work in progress)
-- Run on startup (Work in progress)
+- Run on startup
 
 Many UI are missing by the time you see this page, so there are very few settings to change.
 
