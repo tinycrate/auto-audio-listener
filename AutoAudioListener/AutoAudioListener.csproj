@@ -169,8 +169,17 @@
     <Compile Include="Controls\AutomaticScrollingListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ColorableProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\VolumeMeterBar.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\VolumeSensitivityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\VolumeSensitivityControl.Designer.cs">
+      <DependentUpon>VolumeSensitivityControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EventLogsForm.cs">
       <SubType>Form</SubType>
@@ -191,6 +200,9 @@
     <Compile Include="Utils\AutoStartup.cs" />
     <Compile Include="Utils\Debug\SimpleMessageLogger.cs" />
     <Compile Include="Utils\Debug\TimestampMessageLogger.cs" />
+    <EmbeddedResource Include="Controls\VolumeSensitivityControl.resx">
+      <DependentUpon>VolumeSensitivityControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EventLogsForm.resx">
       <DependentUpon>EventLogsForm.cs</DependentUpon>
     </EmbeddedResource>

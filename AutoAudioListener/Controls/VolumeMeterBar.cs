@@ -26,7 +26,7 @@ namespace AutoAudioListener.Controls {
         };
 
         public VolumeMeterBar() {
-            // Set ControlStyles flags as instructed by Microsoft docs for overriding OnPaint and reduce flickers
+            // Set ControlStyles flags as instructed by Microsoft docs for overriding OnPaint and reducing flickers
             // http://msdn.microsoft.com/en-us/library/system.windows.forms.controlstyles.aspx
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
