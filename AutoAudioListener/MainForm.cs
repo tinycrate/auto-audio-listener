@@ -39,7 +39,6 @@ namespace AutoAudioListener {
             RestoreFormPositionFromPreferences();
             RestoreSelectedProfileFromPreferences();
             RestoreSelectedDevicesFromProfile();
-            if (AutoStartup.IsLaunchedFromAutostart) SetupAutostart();
         }
 
         private void RestoreFormPositionFromPreferences() {
@@ -278,8 +277,8 @@ namespace AutoAudioListener {
             RestoreSelectedDevicesFromProfile();
         }
 
-        private void MainForm_Load(object sender, EventArgs e) {
-
+        private void MainForm_Shown(object sender, EventArgs e) {
+            if (AutoStartup.IsLaunchedFromAutostart) SetupAutostart();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
