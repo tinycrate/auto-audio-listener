@@ -35,10 +35,17 @@ namespace AutoAudioListener {
         
         public MainForm() {
             InitializeComponent();
+            SetUpIcons();
             BindDataSources();
             RestoreFormPositionFromPreferences();
             RestoreSelectedProfileFromPreferences();
             RestoreSelectedDevicesFromProfile();
+        }
+
+        private void SetUpIcons() {
+            var icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            this.Icon = icon;
+            trayIcon.Icon = icon;
         }
 
         private void RestoreFormPositionFromPreferences() {

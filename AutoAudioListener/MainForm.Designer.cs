@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,9 +36,7 @@
             this.volumeMeterGroupBox = new System.Windows.Forms.GroupBox();
             this.volumeBarTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.leftVolumeBarLabel = new System.Windows.Forms.Label();
-            this.leftVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.rightVolumeBarLabel = new System.Windows.Forms.Label();
-            this.rightVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.profileGroupBox = new System.Windows.Forms.GroupBox();
             this.addProfileButton = new System.Windows.Forms.Button();
@@ -48,6 +45,8 @@
             this.viewLogsButton = new System.Windows.Forms.Button();
             this.startStopListeningButton = new System.Windows.Forms.Button();
             this.runAtStartupCheckBox = new System.Windows.Forms.CheckBox();
+            this.leftVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
+            this.rightVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.trayMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.inputDeviceGroupBox.SuspendLayout();
@@ -61,7 +60,6 @@
             // trayIcon
             // 
             this.trayIcon.ContextMenuStrip = this.trayMenu;
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
             this.trayIcon.Text = "Auto Audio Listener";
             this.trayIcon.Visible = true;
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
@@ -189,18 +187,6 @@
             this.leftVolumeBarLabel.Text = "L";
             this.leftVolumeBarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // leftVolumeBar
-            // 
-            this.leftVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.leftVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
-            this.leftVolumeBar.Location = new System.Drawing.Point(3, 3);
-            this.leftVolumeBar.Maximum = 1000;
-            this.leftVolumeBar.Name = "leftVolumeBar";
-            this.leftVolumeBar.Size = new System.Drawing.Size(32, 152);
-            this.leftVolumeBar.TabIndex = 0;
-            // 
             // rightVolumeBarLabel
             // 
             this.rightVolumeBarLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -212,18 +198,6 @@
             this.rightVolumeBarLabel.TabIndex = 3;
             this.rightVolumeBarLabel.Text = "R";
             this.rightVolumeBarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rightVolumeBar
-            // 
-            this.rightVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rightVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
-            this.rightVolumeBar.Location = new System.Drawing.Point(41, 3);
-            this.rightVolumeBar.Maximum = 1000;
-            this.rightVolumeBar.Name = "rightVolumeBar";
-            this.rightVolumeBar.Size = new System.Drawing.Size(32, 152);
-            this.rightVolumeBar.TabIndex = 1;
             // 
             // profileComboBox
             // 
@@ -317,6 +291,30 @@
             this.runAtStartupCheckBox.UseVisualStyleBackColor = true;
             this.runAtStartupCheckBox.CheckedChanged += new System.EventHandler(this.runAtStartupCheckBox_CheckedChanged);
             // 
+            // leftVolumeBar
+            // 
+            this.leftVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.leftVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
+            this.leftVolumeBar.Location = new System.Drawing.Point(3, 3);
+            this.leftVolumeBar.Maximum = 1000;
+            this.leftVolumeBar.Name = "leftVolumeBar";
+            this.leftVolumeBar.Size = new System.Drawing.Size(32, 152);
+            this.leftVolumeBar.TabIndex = 0;
+            // 
+            // rightVolumeBar
+            // 
+            this.rightVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rightVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
+            this.rightVolumeBar.Location = new System.Drawing.Point(41, 3);
+            this.rightVolumeBar.Maximum = 1000;
+            this.rightVolumeBar.Name = "rightVolumeBar";
+            this.rightVolumeBar.Size = new System.Drawing.Size(32, 152);
+            this.rightVolumeBar.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -330,7 +328,6 @@
             this.Controls.Add(this.inputDeviceGroupBox);
             this.Controls.Add(this.statusStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Listener";
