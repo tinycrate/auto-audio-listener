@@ -23,381 +23,381 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.button3 = new System.Windows.Forms.Button();
-            this.volumeSensitivityControl1 = new AutoAudioListener.Controls.VolumeSensitivityControl();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.volumeSensitivityControl2 = new AutoAudioListener.Controls.VolumeSensitivityControl();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.noiseFloorSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
+            this.noiseFloorDescriptionLabel = new System.Windows.Forms.Label();
+            this.noiseFloorValueBox = new System.Windows.Forms.NumericUpDown();
+            this.noiseFloorAutoDetectButton = new System.Windows.Forms.Button();
+            this.noiseFloorGroupBox = new System.Windows.Forms.GroupBox();
+            this.activeLevelSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
+            this.activeLevelDescriptionLabel = new System.Windows.Forms.Label();
+            this.activeLevelValueBox = new System.Windows.Forms.NumericUpDown();
+            this.activeLevelAutoDetectButton = new System.Windows.Forms.Button();
+            this.activeLevelGroupBox = new System.Windows.Forms.GroupBox();
+            this.inputLatencyLabel = new System.Windows.Forms.Label();
+            this.inputLatencyValueBox = new System.Windows.Forms.NumericUpDown();
+            this.outputLatencyLabel = new System.Windows.Forms.Label();
+            this.outputLatencyValueBox = new System.Windows.Forms.NumericUpDown();
+            this.latencyDescriptionLabel = new System.Windows.Forms.Label();
+            this.latencyGroupBox = new System.Windows.Forms.GroupBox();
+            this.timeoutDescriptionLabel = new System.Windows.Forms.Label();
+            this.timeoutLabel = new System.Windows.Forms.Label();
+            this.timeoutValueBox = new System.Windows.Forms.NumericUpDown();
+            this.timeoutGroupBox = new System.Windows.Forms.GroupBox();
+            this.prirorityDescriptionLabel = new System.Windows.Forms.Label();
+            this.prirorityLabel = new System.Windows.Forms.Label();
+            this.prirorityComboBox = new System.Windows.Forms.ComboBox();
+            this.prirorityGroupBox = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).BeginInit();
+            this.noiseFloorGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.activeLevelValueBox)).BeginInit();
+            this.activeLevelGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputLatencyValueBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputLatencyValueBox)).BeginInit();
+            this.latencyGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeoutValueBox)).BeginInit();
+            this.timeoutGroupBox.SuspendLayout();
+            this.prirorityGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button3
+            // saveButton
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button3.Location = new System.Drawing.Point(152, 490);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Save";
-            this.button3.UseVisualStyleBackColor = true;
+            this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.saveButton.Location = new System.Drawing.Point(152, 490);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 9;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
             // 
-            // volumeSensitivityControl1
+            // noiseFloorSensitivityControl
             // 
-            this.volumeSensitivityControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.volumeSensitivityControl1.Location = new System.Drawing.Point(8, 40);
-            this.volumeSensitivityControl1.Name = "volumeSensitivityControl1";
-            this.volumeSensitivityControl1.Size = new System.Drawing.Size(246, 47);
-            this.volumeSensitivityControl1.TabIndex = 0;
+            this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
+            this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.noiseFloorSensitivityControl.TabIndex = 0;
             // 
-            // label1
+            // noiseFloorDescriptionLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(314, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Volume level below this value will be considered complete slience.";
+            this.noiseFloorDescriptionLabel.AutoSize = true;
+            this.noiseFloorDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.noiseFloorDescriptionLabel.Location = new System.Drawing.Point(6, 18);
+            this.noiseFloorDescriptionLabel.Name = "noiseFloorDescriptionLabel";
+            this.noiseFloorDescriptionLabel.Size = new System.Drawing.Size(314, 12);
+            this.noiseFloorDescriptionLabel.TabIndex = 1;
+            this.noiseFloorDescriptionLabel.Text = "Volume level below this value will be considered complete slience.";
             // 
-            // numericUpDown1
+            // noiseFloorValueBox
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.noiseFloorValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorValueBox.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDown1.Location = new System.Drawing.Point(260, 65);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.noiseFloorValueBox.Location = new System.Drawing.Point(260, 65);
+            this.noiseFloorValueBox.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(77, 22);
-            this.numericUpDown1.TabIndex = 0;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.noiseFloorValueBox.Name = "noiseFloorValueBox";
+            this.noiseFloorValueBox.Size = new System.Drawing.Size(77, 22);
+            this.noiseFloorValueBox.TabIndex = 0;
+            this.noiseFloorValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button1
+            // noiseFloorAutoDetectButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(260, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(77, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Auto Detect";
-            this.button1.UseVisualStyleBackColor = true;
+            this.noiseFloorAutoDetectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorAutoDetectButton.Location = new System.Drawing.Point(260, 40);
+            this.noiseFloorAutoDetectButton.Name = "noiseFloorAutoDetectButton";
+            this.noiseFloorAutoDetectButton.Size = new System.Drawing.Size(77, 23);
+            this.noiseFloorAutoDetectButton.TabIndex = 2;
+            this.noiseFloorAutoDetectButton.Text = "Auto Detect";
+            this.noiseFloorAutoDetectButton.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // noiseFloorGroupBox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.noiseFloorGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.volumeSensitivityControl1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(343, 102);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Noise Floor Level";
+            this.noiseFloorGroupBox.Controls.Add(this.noiseFloorAutoDetectButton);
+            this.noiseFloorGroupBox.Controls.Add(this.noiseFloorValueBox);
+            this.noiseFloorGroupBox.Controls.Add(this.noiseFloorDescriptionLabel);
+            this.noiseFloorGroupBox.Controls.Add(this.noiseFloorSensitivityControl);
+            this.noiseFloorGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.noiseFloorGroupBox.Name = "noiseFloorGroupBox";
+            this.noiseFloorGroupBox.Size = new System.Drawing.Size(343, 102);
+            this.noiseFloorGroupBox.TabIndex = 1;
+            this.noiseFloorGroupBox.TabStop = false;
+            this.noiseFloorGroupBox.Text = "Noise Floor Level";
             // 
-            // volumeSensitivityControl2
+            // activeLevelSensitivityControl
             // 
-            this.volumeSensitivityControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.volumeSensitivityControl2.Location = new System.Drawing.Point(8, 40);
-            this.volumeSensitivityControl2.Name = "volumeSensitivityControl2";
-            this.volumeSensitivityControl2.Size = new System.Drawing.Size(246, 47);
-            this.volumeSensitivityControl2.TabIndex = 0;
+            this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
+            this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.activeLevelSensitivityControl.TabIndex = 0;
             // 
-            // label2
+            // activeLevelDescriptionLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(6, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(216, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Volume level above this will trigger listening.";
+            this.activeLevelDescriptionLabel.AutoSize = true;
+            this.activeLevelDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.activeLevelDescriptionLabel.Location = new System.Drawing.Point(6, 18);
+            this.activeLevelDescriptionLabel.Name = "activeLevelDescriptionLabel";
+            this.activeLevelDescriptionLabel.Size = new System.Drawing.Size(216, 12);
+            this.activeLevelDescriptionLabel.TabIndex = 1;
+            this.activeLevelDescriptionLabel.Text = "Volume level above this will trigger listening.";
             // 
-            // numericUpDown2
+            // activeLevelValueBox
             // 
-            this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.activeLevelValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelValueBox.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDown2.Location = new System.Drawing.Point(260, 65);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.activeLevelValueBox.Location = new System.Drawing.Point(260, 65);
+            this.activeLevelValueBox.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(77, 22);
-            this.numericUpDown2.TabIndex = 0;
-            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.activeLevelValueBox.Name = "activeLevelValueBox";
+            this.activeLevelValueBox.Size = new System.Drawing.Size(77, 22);
+            this.activeLevelValueBox.TabIndex = 0;
+            this.activeLevelValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button2
+            // activeLevelAutoDetectButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(260, 40);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Auto Detect";
-            this.button2.UseVisualStyleBackColor = true;
+            this.activeLevelAutoDetectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelAutoDetectButton.Location = new System.Drawing.Point(260, 40);
+            this.activeLevelAutoDetectButton.Name = "activeLevelAutoDetectButton";
+            this.activeLevelAutoDetectButton.Size = new System.Drawing.Size(77, 23);
+            this.activeLevelAutoDetectButton.TabIndex = 2;
+            this.activeLevelAutoDetectButton.Text = "Auto Detect";
+            this.activeLevelAutoDetectButton.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // activeLevelGroupBox
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.activeLevelGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.numericUpDown2);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.volumeSensitivityControl2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 120);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(343, 102);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Active Level";
+            this.activeLevelGroupBox.Controls.Add(this.activeLevelAutoDetectButton);
+            this.activeLevelGroupBox.Controls.Add(this.activeLevelValueBox);
+            this.activeLevelGroupBox.Controls.Add(this.activeLevelDescriptionLabel);
+            this.activeLevelGroupBox.Controls.Add(this.activeLevelSensitivityControl);
+            this.activeLevelGroupBox.Location = new System.Drawing.Point(12, 120);
+            this.activeLevelGroupBox.Name = "activeLevelGroupBox";
+            this.activeLevelGroupBox.Size = new System.Drawing.Size(343, 102);
+            this.activeLevelGroupBox.TabIndex = 3;
+            this.activeLevelGroupBox.TabStop = false;
+            this.activeLevelGroupBox.Text = "Active Level";
             // 
-            // label3
+            // inputLatencyLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Input Latency (ms):";
+            this.inputLatencyLabel.AutoSize = true;
+            this.inputLatencyLabel.Location = new System.Drawing.Point(6, 41);
+            this.inputLatencyLabel.Name = "inputLatencyLabel";
+            this.inputLatencyLabel.Size = new System.Drawing.Size(97, 12);
+            this.inputLatencyLabel.TabIndex = 0;
+            this.inputLatencyLabel.Text = "Input Latency (ms):";
             // 
-            // numericUpDown3
+            // inputLatencyValueBox
             // 
-            this.numericUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.inputLatencyValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown3.Location = new System.Drawing.Point(118, 39);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(78, 22);
-            this.numericUpDown3.TabIndex = 1;
+            this.inputLatencyValueBox.Location = new System.Drawing.Point(118, 39);
+            this.inputLatencyValueBox.Name = "inputLatencyValueBox";
+            this.inputLatencyValueBox.Size = new System.Drawing.Size(78, 22);
+            this.inputLatencyValueBox.TabIndex = 1;
             // 
-            // label4
+            // outputLatencyLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 12);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Output Latency (ms):";
+            this.outputLatencyLabel.AutoSize = true;
+            this.outputLatencyLabel.Location = new System.Drawing.Point(6, 65);
+            this.outputLatencyLabel.Name = "outputLatencyLabel";
+            this.outputLatencyLabel.Size = new System.Drawing.Size(104, 12);
+            this.outputLatencyLabel.TabIndex = 2;
+            this.outputLatencyLabel.Text = "Output Latency (ms):";
             // 
-            // numericUpDown4
+            // outputLatencyValueBox
             // 
-            this.numericUpDown4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.outputLatencyValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown4.Location = new System.Drawing.Point(118, 63);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(78, 22);
-            this.numericUpDown4.TabIndex = 3;
+            this.outputLatencyValueBox.Location = new System.Drawing.Point(118, 63);
+            this.outputLatencyValueBox.Name = "outputLatencyValueBox";
+            this.outputLatencyValueBox.Size = new System.Drawing.Size(78, 22);
+            this.outputLatencyValueBox.TabIndex = 3;
             // 
-            // label5
+            // latencyDescriptionLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(6, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(322, 12);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Lower values require higher processing power and process prirority.";
+            this.latencyDescriptionLabel.AutoSize = true;
+            this.latencyDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.latencyDescriptionLabel.Location = new System.Drawing.Point(6, 18);
+            this.latencyDescriptionLabel.Name = "latencyDescriptionLabel";
+            this.latencyDescriptionLabel.Size = new System.Drawing.Size(322, 12);
+            this.latencyDescriptionLabel.TabIndex = 4;
+            this.latencyDescriptionLabel.Text = "Lower values require higher processing power and process prirority.";
             // 
-            // groupBox3
+            // latencyGroupBox
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.latencyGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.numericUpDown4);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.numericUpDown3);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(12, 228);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(343, 96);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Latency";
+            this.latencyGroupBox.Controls.Add(this.latencyDescriptionLabel);
+            this.latencyGroupBox.Controls.Add(this.outputLatencyValueBox);
+            this.latencyGroupBox.Controls.Add(this.outputLatencyLabel);
+            this.latencyGroupBox.Controls.Add(this.inputLatencyValueBox);
+            this.latencyGroupBox.Controls.Add(this.inputLatencyLabel);
+            this.latencyGroupBox.Location = new System.Drawing.Point(12, 228);
+            this.latencyGroupBox.Name = "latencyGroupBox";
+            this.latencyGroupBox.Size = new System.Drawing.Size(343, 96);
+            this.latencyGroupBox.TabIndex = 4;
+            this.latencyGroupBox.TabStop = false;
+            this.latencyGroupBox.Text = "Latency";
             // 
-            // label6
+            // timeoutDescriptionLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(8, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(304, 12);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Number of miliseconds before audio becomes deactivated again.\r\n";
+            this.timeoutDescriptionLabel.AutoSize = true;
+            this.timeoutDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.timeoutDescriptionLabel.Location = new System.Drawing.Point(8, 18);
+            this.timeoutDescriptionLabel.Name = "timeoutDescriptionLabel";
+            this.timeoutDescriptionLabel.Size = new System.Drawing.Size(304, 12);
+            this.timeoutDescriptionLabel.TabIndex = 5;
+            this.timeoutDescriptionLabel.Text = "Number of miliseconds before audio becomes deactivated again.\r\n";
             // 
-            // label7
+            // timeoutLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 41);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 12);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Active Timeout (ms):";
+            this.timeoutLabel.AutoSize = true;
+            this.timeoutLabel.Location = new System.Drawing.Point(8, 41);
+            this.timeoutLabel.Name = "timeoutLabel";
+            this.timeoutLabel.Size = new System.Drawing.Size(104, 12);
+            this.timeoutLabel.TabIndex = 5;
+            this.timeoutLabel.Text = "Active Timeout (ms):";
             // 
-            // numericUpDown5
+            // timeoutValueBox
             // 
-            this.numericUpDown5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.timeoutValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown5.Location = new System.Drawing.Point(118, 39);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(78, 22);
-            this.numericUpDown5.TabIndex = 6;
+            this.timeoutValueBox.Location = new System.Drawing.Point(118, 39);
+            this.timeoutValueBox.Name = "timeoutValueBox";
+            this.timeoutValueBox.Size = new System.Drawing.Size(78, 22);
+            this.timeoutValueBox.TabIndex = 6;
             // 
-            // groupBox4
+            // timeoutGroupBox
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.timeoutGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.numericUpDown5);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Location = new System.Drawing.Point(12, 330);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(343, 74);
-            this.groupBox4.TabIndex = 5;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Active Timeout";
+            this.timeoutGroupBox.Controls.Add(this.timeoutValueBox);
+            this.timeoutGroupBox.Controls.Add(this.timeoutLabel);
+            this.timeoutGroupBox.Controls.Add(this.timeoutDescriptionLabel);
+            this.timeoutGroupBox.Location = new System.Drawing.Point(12, 330);
+            this.timeoutGroupBox.Name = "timeoutGroupBox";
+            this.timeoutGroupBox.Size = new System.Drawing.Size(343, 74);
+            this.timeoutGroupBox.TabIndex = 5;
+            this.timeoutGroupBox.TabStop = false;
+            this.timeoutGroupBox.Text = "Active Timeout";
             // 
-            // label9
+            // prirorityDescriptionLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label9.Location = new System.Drawing.Point(8, 18);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(291, 12);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Higher settings reduce shuttering under sudden CPU demand.";
+            this.prirorityDescriptionLabel.AutoSize = true;
+            this.prirorityDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.prirorityDescriptionLabel.Location = new System.Drawing.Point(8, 18);
+            this.prirorityDescriptionLabel.Name = "prirorityDescriptionLabel";
+            this.prirorityDescriptionLabel.Size = new System.Drawing.Size(291, 12);
+            this.prirorityDescriptionLabel.TabIndex = 5;
+            this.prirorityDescriptionLabel.Text = "Higher settings reduce shuttering under sudden CPU demand.";
             // 
-            // label8
+            // prirorityLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 41);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 12);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Process Prirority:";
+            this.prirorityLabel.AutoSize = true;
+            this.prirorityLabel.Location = new System.Drawing.Point(8, 41);
+            this.prirorityLabel.Name = "prirorityLabel";
+            this.prirorityLabel.Size = new System.Drawing.Size(84, 12);
+            this.prirorityLabel.TabIndex = 5;
+            this.prirorityLabel.Text = "Process Prirority:";
             // 
-            // comboBox1
+            // prirorityComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(118, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(181, 20);
-            this.comboBox1.TabIndex = 6;
+            this.prirorityComboBox.FormattingEnabled = true;
+            this.prirorityComboBox.Location = new System.Drawing.Point(118, 38);
+            this.prirorityComboBox.Name = "prirorityComboBox";
+            this.prirorityComboBox.Size = new System.Drawing.Size(181, 20);
+            this.prirorityComboBox.TabIndex = 6;
             // 
-            // groupBox5
+            // prirorityGroupBox
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.prirorityGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.comboBox1);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Location = new System.Drawing.Point(12, 410);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(343, 71);
-            this.groupBox5.TabIndex = 7;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Process Priority";
+            this.prirorityGroupBox.Controls.Add(this.prirorityComboBox);
+            this.prirorityGroupBox.Controls.Add(this.prirorityLabel);
+            this.prirorityGroupBox.Controls.Add(this.prirorityDescriptionLabel);
+            this.prirorityGroupBox.Location = new System.Drawing.Point(12, 410);
+            this.prirorityGroupBox.Name = "prirorityGroupBox";
+            this.prirorityGroupBox.Size = new System.Drawing.Size(343, 71);
+            this.prirorityGroupBox.TabIndex = 7;
+            this.prirorityGroupBox.TabStop = false;
+            this.prirorityGroupBox.Text = "Process Priority";
             // 
-            // ProfileEditForm
+            // profileEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 528);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.prirorityGroupBox);
+            this.Controls.Add(this.timeoutGroupBox);
+            this.Controls.Add(this.latencyGroupBox);
+            this.Controls.Add(this.activeLevelGroupBox);
+            this.Controls.Add(this.noiseFloorGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "ProfileEditForm";
+            this.Name = "profileEditForm";
             this.Text = "Edit Profile";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).EndInit();
+            this.noiseFloorGroupBox.ResumeLayout(false);
+            this.noiseFloorGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.activeLevelValueBox)).EndInit();
+            this.activeLevelGroupBox.ResumeLayout(false);
+            this.activeLevelGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputLatencyValueBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputLatencyValueBox)).EndInit();
+            this.latencyGroupBox.ResumeLayout(false);
+            this.latencyGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeoutValueBox)).EndInit();
+            this.timeoutGroupBox.ResumeLayout(false);
+            this.timeoutGroupBox.PerformLayout();
+            this.prirorityGroupBox.ResumeLayout(false);
+            this.prirorityGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button3;
-        private Controls.VolumeSensitivityControl volumeSensitivityControl1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private Controls.VolumeSensitivityControl volumeSensitivityControl2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button saveButton;
+        private Controls.VolumeSensitivityControl noiseFloorSensitivityControl;
+        private System.Windows.Forms.Label noiseFloorDescriptionLabel;
+        private System.Windows.Forms.NumericUpDown noiseFloorValueBox;
+        private System.Windows.Forms.Button noiseFloorAutoDetectButton;
+        private System.Windows.Forms.GroupBox noiseFloorGroupBox;
+        private Controls.VolumeSensitivityControl activeLevelSensitivityControl;
+        private System.Windows.Forms.Label activeLevelDescriptionLabel;
+        private System.Windows.Forms.NumericUpDown activeLevelValueBox;
+        private System.Windows.Forms.Button activeLevelAutoDetectButton;
+        private System.Windows.Forms.GroupBox activeLevelGroupBox;
+        private System.Windows.Forms.Label inputLatencyLabel;
+        private System.Windows.Forms.NumericUpDown inputLatencyValueBox;
+        private System.Windows.Forms.Label outputLatencyLabel;
+        private System.Windows.Forms.NumericUpDown outputLatencyValueBox;
+        private System.Windows.Forms.Label latencyDescriptionLabel;
+        private System.Windows.Forms.GroupBox latencyGroupBox;
+        private System.Windows.Forms.Label timeoutDescriptionLabel;
+        private System.Windows.Forms.Label timeoutLabel;
+        private System.Windows.Forms.NumericUpDown timeoutValueBox;
+        private System.Windows.Forms.GroupBox timeoutGroupBox;
+        private System.Windows.Forms.Label prirorityDescriptionLabel;
+        private System.Windows.Forms.Label prirorityLabel;
+        private System.Windows.Forms.ComboBox prirorityComboBox;
+        private System.Windows.Forms.GroupBox prirorityGroupBox;
     }
 }
