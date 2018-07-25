@@ -36,7 +36,9 @@
             this.volumeMeterGroupBox = new System.Windows.Forms.GroupBox();
             this.volumeBarTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.leftVolumeBarLabel = new System.Windows.Forms.Label();
+            this.leftVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.rightVolumeBarLabel = new System.Windows.Forms.Label();
+            this.rightVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.profileGroupBox = new System.Windows.Forms.GroupBox();
             this.addProfileButton = new System.Windows.Forms.Button();
@@ -45,8 +47,7 @@
             this.viewLogsButton = new System.Windows.Forms.Button();
             this.startStopListeningButton = new System.Windows.Forms.Button();
             this.runAtStartupCheckBox = new System.Windows.Forms.CheckBox();
-            this.leftVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
-            this.rightVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
+            this.deleteProfileButton = new System.Windows.Forms.Button();
             this.trayMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.inputDeviceGroupBox.SuspendLayout();
@@ -187,6 +188,18 @@
             this.leftVolumeBarLabel.Text = "L";
             this.leftVolumeBarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // leftVolumeBar
+            // 
+            this.leftVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.leftVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
+            this.leftVolumeBar.Location = new System.Drawing.Point(3, 3);
+            this.leftVolumeBar.Maximum = 1000;
+            this.leftVolumeBar.Name = "leftVolumeBar";
+            this.leftVolumeBar.Size = new System.Drawing.Size(32, 152);
+            this.leftVolumeBar.TabIndex = 0;
+            // 
             // rightVolumeBarLabel
             // 
             this.rightVolumeBarLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -198,6 +211,18 @@
             this.rightVolumeBarLabel.TabIndex = 3;
             this.rightVolumeBarLabel.Text = "R";
             this.rightVolumeBarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // rightVolumeBar
+            // 
+            this.rightVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rightVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
+            this.rightVolumeBar.Location = new System.Drawing.Point(41, 3);
+            this.rightVolumeBar.Maximum = 1000;
+            this.rightVolumeBar.Name = "rightVolumeBar";
+            this.rightVolumeBar.Size = new System.Drawing.Size(32, 152);
+            this.rightVolumeBar.TabIndex = 1;
             // 
             // profileComboBox
             // 
@@ -214,6 +239,7 @@
             // 
             this.profileGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.profileGroupBox.Controls.Add(this.deleteProfileButton);
             this.profileGroupBox.Controls.Add(this.addProfileButton);
             this.profileGroupBox.Controls.Add(this.editProfileButton);
             this.profileGroupBox.Controls.Add(this.profileComboBox);
@@ -238,11 +264,11 @@
             // 
             this.editProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.editProfileButton.Location = new System.Drawing.Point(27, 47);
+            this.editProfileButton.Location = new System.Drawing.Point(25, 47);
             this.editProfileButton.Name = "editProfileButton";
-            this.editProfileButton.Size = new System.Drawing.Size(67, 23);
+            this.editProfileButton.Size = new System.Drawing.Size(51, 23);
             this.editProfileButton.TabIndex = 1;
-            this.editProfileButton.Text = "Edit >>";
+            this.editProfileButton.Text = "Edit";
             this.editProfileButton.UseVisualStyleBackColor = true;
             this.editProfileButton.Click += new System.EventHandler(this.editProfileButton_Click);
             // 
@@ -291,29 +317,14 @@
             this.runAtStartupCheckBox.UseVisualStyleBackColor = true;
             this.runAtStartupCheckBox.CheckedChanged += new System.EventHandler(this.runAtStartupCheckBox_CheckedChanged);
             // 
-            // leftVolumeBar
+            // deleteProfileButton
             // 
-            this.leftVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.leftVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
-            this.leftVolumeBar.Location = new System.Drawing.Point(3, 3);
-            this.leftVolumeBar.Maximum = 1000;
-            this.leftVolumeBar.Name = "leftVolumeBar";
-            this.leftVolumeBar.Size = new System.Drawing.Size(32, 152);
-            this.leftVolumeBar.TabIndex = 0;
-            // 
-            // rightVolumeBar
-            // 
-            this.rightVolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rightVolumeBar.FillStyle = AutoAudioListener.Controls.VolumeMeterBar.VolumeMeterFillStyle.Vertical;
-            this.rightVolumeBar.Location = new System.Drawing.Point(41, 3);
-            this.rightVolumeBar.Maximum = 1000;
-            this.rightVolumeBar.Name = "rightVolumeBar";
-            this.rightVolumeBar.Size = new System.Drawing.Size(32, 152);
-            this.rightVolumeBar.TabIndex = 1;
+            this.deleteProfileButton.Location = new System.Drawing.Point(75, 47);
+            this.deleteProfileButton.Name = "deleteProfileButton";
+            this.deleteProfileButton.Size = new System.Drawing.Size(20, 23);
+            this.deleteProfileButton.TabIndex = 3;
+            this.deleteProfileButton.Text = "-";
+            this.deleteProfileButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -373,6 +384,7 @@
         private System.Windows.Forms.Button startStopListeningButton;
         private System.Windows.Forms.Button viewLogsButton;
         private System.Windows.Forms.CheckBox runAtStartupCheckBox;
+        private System.Windows.Forms.Button deleteProfileButton;
     }
 }
 

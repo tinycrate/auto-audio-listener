@@ -62,7 +62,7 @@ namespace AutoAudioListener {
             }
         }
 
-        private void SaveFormPositionToPreferences() {
+        private void UpdateAndSaveFormPositionPreferences() {
             UpdateFormPositionPreferences();
             Properties.Settings.Default.Save();
         }
@@ -290,7 +290,7 @@ namespace AutoAudioListener {
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             MainAudioListener?.Dispose();
-            SaveFormPositionToPreferences();
+            UpdateAndSaveFormPositionPreferences();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {          
