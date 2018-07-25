@@ -24,12 +24,10 @@
         /// </summary>
         private void InitializeComponent() {
             this.saveButton = new System.Windows.Forms.Button();
-            this.noiseFloorSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
             this.noiseFloorDescriptionLabel = new System.Windows.Forms.Label();
             this.noiseFloorValueBox = new System.Windows.Forms.NumericUpDown();
             this.noiseFloorAutoDetectButton = new System.Windows.Forms.Button();
             this.noiseFloorGroupBox = new System.Windows.Forms.GroupBox();
-            this.activeLevelSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
             this.activeLevelDescriptionLabel = new System.Windows.Forms.Label();
             this.activeLevelValueBox = new System.Windows.Forms.NumericUpDown();
             this.activeLevelAutoDetectButton = new System.Windows.Forms.Button();
@@ -44,10 +42,12 @@
             this.timeoutLabel = new System.Windows.Forms.Label();
             this.timeoutValueBox = new System.Windows.Forms.NumericUpDown();
             this.timeoutGroupBox = new System.Windows.Forms.GroupBox();
-            this.prirorityDescriptionLabel = new System.Windows.Forms.Label();
-            this.prirorityLabel = new System.Windows.Forms.Label();
-            this.prirorityComboBox = new System.Windows.Forms.ComboBox();
-            this.prirorityGroupBox = new System.Windows.Forms.GroupBox();
+            this.priorityDescriptionLabel = new System.Windows.Forms.Label();
+            this.priorityLabel = new System.Windows.Forms.Label();
+            this.priorityComboBox = new System.Windows.Forms.ComboBox();
+            this.priorityGroupBox = new System.Windows.Forms.GroupBox();
+            this.activeLevelSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
+            this.noiseFloorSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
             ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).BeginInit();
             this.noiseFloorGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.activeLevelValueBox)).BeginInit();
@@ -57,7 +57,7 @@
             this.latencyGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeoutValueBox)).BeginInit();
             this.timeoutGroupBox.SuspendLayout();
-            this.prirorityGroupBox.SuspendLayout();
+            this.priorityGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveButton
@@ -69,14 +69,7 @@
             this.saveButton.TabIndex = 9;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            // 
-            // noiseFloorSensitivityControl
-            // 
-            this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
-            this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
-            this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
-            this.noiseFloorSensitivityControl.TabIndex = 0;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // noiseFloorDescriptionLabel
             // 
@@ -91,11 +84,12 @@
             // noiseFloorValueBox
             // 
             this.noiseFloorValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorValueBox.DecimalPlaces = 5;
             this.noiseFloorValueBox.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            196608});
+            327680});
             this.noiseFloorValueBox.Location = new System.Drawing.Point(260, 65);
             this.noiseFloorValueBox.Maximum = new decimal(new int[] {
             1,
@@ -132,14 +126,6 @@
             this.noiseFloorGroupBox.TabStop = false;
             this.noiseFloorGroupBox.Text = "Noise Floor Level";
             // 
-            // activeLevelSensitivityControl
-            // 
-            this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
-            this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
-            this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
-            this.activeLevelSensitivityControl.TabIndex = 0;
-            // 
             // activeLevelDescriptionLabel
             // 
             this.activeLevelDescriptionLabel.AutoSize = true;
@@ -153,11 +139,12 @@
             // activeLevelValueBox
             // 
             this.activeLevelValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelValueBox.DecimalPlaces = 5;
             this.activeLevelValueBox.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            196608});
+            327680});
             this.activeLevelValueBox.Location = new System.Drawing.Point(260, 65);
             this.activeLevelValueBox.Maximum = new decimal(new int[] {
             1,
@@ -208,9 +195,19 @@
             this.inputLatencyValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.inputLatencyValueBox.Location = new System.Drawing.Point(118, 39);
+            this.inputLatencyValueBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.inputLatencyValueBox.Name = "inputLatencyValueBox";
             this.inputLatencyValueBox.Size = new System.Drawing.Size(78, 22);
             this.inputLatencyValueBox.TabIndex = 1;
+            this.inputLatencyValueBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // outputLatencyLabel
             // 
@@ -226,9 +223,19 @@
             this.outputLatencyValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.outputLatencyValueBox.Location = new System.Drawing.Point(118, 63);
+            this.outputLatencyValueBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.outputLatencyValueBox.Name = "outputLatencyValueBox";
             this.outputLatencyValueBox.Size = new System.Drawing.Size(78, 22);
             this.outputLatencyValueBox.TabIndex = 3;
+            this.outputLatencyValueBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // latencyDescriptionLabel
             // 
@@ -236,9 +243,9 @@
             this.latencyDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.latencyDescriptionLabel.Location = new System.Drawing.Point(6, 18);
             this.latencyDescriptionLabel.Name = "latencyDescriptionLabel";
-            this.latencyDescriptionLabel.Size = new System.Drawing.Size(322, 12);
+            this.latencyDescriptionLabel.Size = new System.Drawing.Size(318, 12);
             this.latencyDescriptionLabel.TabIndex = 4;
-            this.latencyDescriptionLabel.Text = "Lower values require higher processing power and process prirority.";
+            this.latencyDescriptionLabel.Text = "Lower values require higher processing power and process priority.";
             // 
             // latencyGroupBox
             // 
@@ -280,6 +287,11 @@
             this.timeoutValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeoutValueBox.Location = new System.Drawing.Point(118, 39);
+            this.timeoutValueBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.timeoutValueBox.Name = "timeoutValueBox";
             this.timeoutValueBox.Size = new System.Drawing.Size(78, 22);
             this.timeoutValueBox.TabIndex = 6;
@@ -298,60 +310,78 @@
             this.timeoutGroupBox.TabStop = false;
             this.timeoutGroupBox.Text = "Active Timeout";
             // 
-            // prirorityDescriptionLabel
+            // priorityDescriptionLabel
             // 
-            this.prirorityDescriptionLabel.AutoSize = true;
-            this.prirorityDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.prirorityDescriptionLabel.Location = new System.Drawing.Point(8, 18);
-            this.prirorityDescriptionLabel.Name = "prirorityDescriptionLabel";
-            this.prirorityDescriptionLabel.Size = new System.Drawing.Size(291, 12);
-            this.prirorityDescriptionLabel.TabIndex = 5;
-            this.prirorityDescriptionLabel.Text = "Higher settings reduce shuttering under sudden CPU demand.";
+            this.priorityDescriptionLabel.AutoSize = true;
+            this.priorityDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.priorityDescriptionLabel.Location = new System.Drawing.Point(8, 18);
+            this.priorityDescriptionLabel.Name = "priorityDescriptionLabel";
+            this.priorityDescriptionLabel.Size = new System.Drawing.Size(291, 12);
+            this.priorityDescriptionLabel.TabIndex = 5;
+            this.priorityDescriptionLabel.Text = "Higher settings reduce shuttering under sudden CPU demand.";
             // 
-            // prirorityLabel
+            // priorityLabel
             // 
-            this.prirorityLabel.AutoSize = true;
-            this.prirorityLabel.Location = new System.Drawing.Point(8, 41);
-            this.prirorityLabel.Name = "prirorityLabel";
-            this.prirorityLabel.Size = new System.Drawing.Size(84, 12);
-            this.prirorityLabel.TabIndex = 5;
-            this.prirorityLabel.Text = "Process Prirority:";
+            this.priorityLabel.AutoSize = true;
+            this.priorityLabel.Location = new System.Drawing.Point(8, 41);
+            this.priorityLabel.Name = "priorityLabel";
+            this.priorityLabel.Size = new System.Drawing.Size(80, 12);
+            this.priorityLabel.TabIndex = 5;
+            this.priorityLabel.Text = "Process Priority:";
             // 
-            // prirorityComboBox
+            // priorityComboBox
             // 
-            this.prirorityComboBox.FormattingEnabled = true;
-            this.prirorityComboBox.Location = new System.Drawing.Point(118, 38);
-            this.prirorityComboBox.Name = "prirorityComboBox";
-            this.prirorityComboBox.Size = new System.Drawing.Size(181, 20);
-            this.prirorityComboBox.TabIndex = 6;
+            this.priorityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.priorityComboBox.FormattingEnabled = true;
+            this.priorityComboBox.Location = new System.Drawing.Point(118, 38);
+            this.priorityComboBox.Name = "priorityComboBox";
+            this.priorityComboBox.Size = new System.Drawing.Size(181, 20);
+            this.priorityComboBox.TabIndex = 6;
+            this.priorityComboBox.SelectionChangeCommitted += new System.EventHandler(this.priorityComboBox_SelectionChangeCommitted);
             // 
-            // prirorityGroupBox
+            // priorityGroupBox
             // 
-            this.prirorityGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.priorityGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.prirorityGroupBox.Controls.Add(this.prirorityComboBox);
-            this.prirorityGroupBox.Controls.Add(this.prirorityLabel);
-            this.prirorityGroupBox.Controls.Add(this.prirorityDescriptionLabel);
-            this.prirorityGroupBox.Location = new System.Drawing.Point(12, 410);
-            this.prirorityGroupBox.Name = "prirorityGroupBox";
-            this.prirorityGroupBox.Size = new System.Drawing.Size(343, 71);
-            this.prirorityGroupBox.TabIndex = 7;
-            this.prirorityGroupBox.TabStop = false;
-            this.prirorityGroupBox.Text = "Process Priority";
+            this.priorityGroupBox.Controls.Add(this.priorityComboBox);
+            this.priorityGroupBox.Controls.Add(this.priorityLabel);
+            this.priorityGroupBox.Controls.Add(this.priorityDescriptionLabel);
+            this.priorityGroupBox.Location = new System.Drawing.Point(12, 410);
+            this.priorityGroupBox.Name = "priorityGroupBox";
+            this.priorityGroupBox.Size = new System.Drawing.Size(343, 71);
+            this.priorityGroupBox.TabIndex = 7;
+            this.priorityGroupBox.TabStop = false;
+            this.priorityGroupBox.Text = "Process Priority";
             // 
-            // profileEditForm
+            // activeLevelSensitivityControl
+            // 
+            this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
+            this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.activeLevelSensitivityControl.TabIndex = 0;
+            // 
+            // noiseFloorSensitivityControl
+            // 
+            this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
+            this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.noiseFloorSensitivityControl.TabIndex = 0;
+            // 
+            // ProfileEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 528);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.prirorityGroupBox);
+            this.Controls.Add(this.priorityGroupBox);
             this.Controls.Add(this.timeoutGroupBox);
             this.Controls.Add(this.latencyGroupBox);
             this.Controls.Add(this.activeLevelGroupBox);
             this.Controls.Add(this.noiseFloorGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "profileEditForm";
+            this.Name = "ProfileEditForm";
             this.Text = "Edit Profile";
             ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).EndInit();
             this.noiseFloorGroupBox.ResumeLayout(false);
@@ -366,8 +396,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeoutValueBox)).EndInit();
             this.timeoutGroupBox.ResumeLayout(false);
             this.timeoutGroupBox.PerformLayout();
-            this.prirorityGroupBox.ResumeLayout(false);
-            this.prirorityGroupBox.PerformLayout();
+            this.priorityGroupBox.ResumeLayout(false);
+            this.priorityGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,9 +425,9 @@
         private System.Windows.Forms.Label timeoutLabel;
         private System.Windows.Forms.NumericUpDown timeoutValueBox;
         private System.Windows.Forms.GroupBox timeoutGroupBox;
-        private System.Windows.Forms.Label prirorityDescriptionLabel;
-        private System.Windows.Forms.Label prirorityLabel;
-        private System.Windows.Forms.ComboBox prirorityComboBox;
-        private System.Windows.Forms.GroupBox prirorityGroupBox;
+        private System.Windows.Forms.Label priorityDescriptionLabel;
+        private System.Windows.Forms.Label priorityLabel;
+        private System.Windows.Forms.ComboBox priorityComboBox;
+        private System.Windows.Forms.GroupBox priorityGroupBox;
     }
 }

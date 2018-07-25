@@ -93,13 +93,13 @@ namespace AutoAudioListener.Audio {
 
         private void InitializeDevices() {
             using (var devices = new MMDeviceEnumerator()) {
-                inputDevice = devices.GetDevice(Format.inputDeviceID);
-                outputDevice = devices.GetDevice(Format.outputDeviceID);
+                inputDevice = devices.GetDevice(Format.InputDeviceID);
+                outputDevice = devices.GetDevice(Format.OutputDeviceID);
             }
         }
 
         private void InitializeInputStream() {
-            inputStream = new WasapiCapture(inputDevice, false, Format.preferredInputLatency);
+            inputStream = new WasapiCapture(inputDevice, false, Format.PreferredInputLatency);
         }
 
         private void InitializeVolumeControl() {
@@ -114,7 +114,7 @@ namespace AutoAudioListener.Audio {
         }
 
         private void InitializeOutputStream() {
-            outputStream = new WasapiOut(outputDevice, AudioClientShareMode.Shared, false, Format.preferredOutputLatency);
+            outputStream = new WasapiOut(outputDevice, AudioClientShareMode.Shared, false, Format.PreferredOutputLatency);
             var convertedInputStreamProvider = new SampleToWaveProvider(volumeControl);
             outputStream.Init(convertedInputStreamProvider);
         }

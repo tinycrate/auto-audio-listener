@@ -9,10 +9,10 @@ namespace AutoAudioListener.Audio {
     public class AudioListenerFormat {
 
         public AudioListenerFormat(string inputDeviceID, string outputDeviceID, int preferredInputLatency, int preferredOutputLatency) {
-            this.inputDeviceID = inputDeviceID;
-            this.outputDeviceID = outputDeviceID;
-            this.preferredInputLatency = preferredInputLatency;
-            this.preferredOutputLatency = preferredOutputLatency;
+            this.InputDeviceID = inputDeviceID;
+            this.OutputDeviceID = outputDeviceID;
+            this.PreferredInputLatency = preferredInputLatency;
+            this.PreferredOutputLatency = preferredOutputLatency;
         }
 
         public AudioListenerFormat(string inputDeviceID, string outputDeviceID, int preferredInputLatency)
@@ -22,7 +22,7 @@ namespace AutoAudioListener.Audio {
             : this(inputDeviceID, outputDeviceID, 100, 200) { }
 
         public AudioListenerFormat(AudioListenerFormat audioListenerFormat) 
-            : this(audioListenerFormat.inputDeviceID, audioListenerFormat.outputDeviceID, audioListenerFormat.preferredInputLatency, audioListenerFormat.preferredOutputLatency) { }
+            : this(audioListenerFormat.InputDeviceID, audioListenerFormat.OutputDeviceID, audioListenerFormat.PreferredInputLatency, audioListenerFormat.PreferredOutputLatency) { }
 
         protected AudioListenerFormat() {
         }
@@ -37,9 +37,9 @@ namespace AutoAudioListener.Audio {
             }
         }
 
-        public string inputDeviceID { get; set; }
-        public string outputDeviceID { get; set; }
-        public int preferredInputLatency { get; set; }
-        public int preferredOutputLatency { get; set; }
+        public string InputDeviceID { get; set; }
+        public string OutputDeviceID { get; set; }
+        public int PreferredInputLatency { get; set; }
+        public int PreferredOutputLatency { get; set; }
     }
 }

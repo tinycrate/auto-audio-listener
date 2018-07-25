@@ -92,7 +92,22 @@ namespace AutoAudioListener.AppSettings {
         }
 
         public void SaveChanges() {
-            UpdateProfile(this);
+            if (ValidateData()) {
+                UpdateProfile(this);
+            } else {
+                throw new InvalidDataException("Data validation failed. Check before saving!");
+            }
+        }
+
+        public bool ValidateData() {
+            if (ActiveListenerFormat.SlienceLevel >= 0 && ActiveListenerFormat.SlienceLevel <= 1 &&
+                ActiveListenerFormat.ActiveLevel >= 0 && ActiveListenerFormat.ActiveLevel <= 1 &&
+                ActiveListenerFormat.PreferredInputLatency > 0 && ActiveListenerFormat.PreferredOutputLatency > 0
+                ) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
     }

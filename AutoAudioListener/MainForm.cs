@@ -79,8 +79,8 @@ namespace AutoAudioListener {
         }
 
         private void RestoreSelectedDevicesFromProfile() {
-            string inputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.inputDeviceID;
-            string outputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.outputDeviceID;
+            string inputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.InputDeviceID;
+            string outputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.OutputDeviceID;
             var inputDevices = (List<MMDevice>)inputDeviceComboBox.DataSource;
             var outputDevices = (List<MMDevice>)outputDeviceComboBox.DataSource;
             int inputDeviceIndex = inputDevices.FindIndex(device => device.ID == inputDeviceID);
@@ -116,8 +116,8 @@ namespace AutoAudioListener {
             var inputDevice = (MMDevice)inputDeviceComboBox.SelectedItem;
             var outputDevice = (MMDevice)outputDeviceComboBox.SelectedItem;
             var activeListenerFormat = profile.ActiveListenerFormat;
-            activeListenerFormat.inputDeviceID = inputDevice.ID;
-            activeListenerFormat.outputDeviceID = outputDevice.ID;
+            activeListenerFormat.InputDeviceID = inputDevice.ID;
+            activeListenerFormat.OutputDeviceID = outputDevice.ID;
             MainAudioListener = new ActiveAudioListener(activeListenerFormat, this);
             Process.GetCurrentProcess().PriorityClass = profile.AppPriority;
             LogListeningStatus(profile, inputDevice, outputDevice, activeListenerFormat);
@@ -130,8 +130,8 @@ namespace AutoAudioListener {
             LogEventHistory($"Main Audio Listener is set using profile { profile.Name }:");
             LogEventHistory($"  >Input device: { inputDevice.FriendlyName }");
             LogEventHistory($"  >Output device: { outputDevice.FriendlyName }");
-            LogEventHistory($"  >Preferred Input Latency: { activeListenerFormat.preferredInputLatency }");
-            LogEventHistory($"  >Preferred Output Latency: { activeListenerFormat.preferredOutputLatency }");
+            LogEventHistory($"  >Preferred Input Latency: { activeListenerFormat.PreferredInputLatency }");
+            LogEventHistory($"  >Preferred Output Latency: { activeListenerFormat.PreferredOutputLatency }");
             LogEventHistory($"  >Slience Level:  { activeListenerFormat.SlienceLevel }");
             LogEventHistory($"  >Active Level: { activeListenerFormat.ActiveLevel }");
             LogEventHistory($"  >Active Timeout Milliseconds: { activeListenerFormat.ActiveTimeoutMilliseconds }");
@@ -302,7 +302,9 @@ namespace AutoAudioListener {
         }
 
         private void editProfileButton_Click(object sender, EventArgs e) {
-            MessageBox.Show("Not Implemented!");
+            var profile = (CustomProfile)profileComboBox.SelectedItem;
+            var editForm = new ProfileEditForm(profile);
+            editForm.ShowDialog();
         }
     }
 }
