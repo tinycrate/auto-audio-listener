@@ -169,7 +169,7 @@ namespace AutoAudioListener {
 
         private void BindProfileList() {
             profileComboBox.DataSource = null;
-            profileComboBox.DataSource = CustomProfile.EnumerateProfiles().ToList();
+            profileComboBox.DataSource = CustomProfile.EnumerateProfiles().OrderByDescending(x=>x.DateModified).ToList();
             profileComboBox.DisplayMember = "Name";
         }
 

@@ -66,6 +66,7 @@ namespace AutoAudioListener.AppSettings {
             var serializer = new XmlSerializer(typeof(CustomProfile));
             if (!Directory.Exists(UserProfilePath)) Directory.CreateDirectory(UserProfilePath);
             using (var writer = new StreamWriter(profile.FilePath, false)) {
+                profile.DateModified = DateTime.Now;
                 serializer.Serialize(writer, profile);
             }
         }
@@ -113,6 +114,8 @@ namespace AutoAudioListener.AppSettings {
                 return GetProfilePath(Id);
             }
         }
+
+        public DateTime DateModified { get; set; }
 
         public void SaveChanges() {
             if (ValidateData()) {
