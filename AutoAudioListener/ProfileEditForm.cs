@@ -45,17 +45,40 @@ namespace AutoAudioListener {
             priorityComboBox.SelectedItem = ProcessPriority.First(s => s.Value == WorkingProfile.AppPriority);
         }
 
-        private void saveButton_Click(object sender, EventArgs e) {
+        private bool SaveProfile() {
             if (WorkingProfile.ValidateData()) {
                 WorkingProfile.SaveChanges();
-                this.Close();
+                return true;
             } else {
                 MessageBox.Show("Some field you've inputted is invalid!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e) {
+            if (SaveProfile()) {
+                FormClosing -= ProfileEditForm_FormClosing;
+                this.Close();
             }
         }
 
         private void priorityComboBox_SelectionChangeCommitted(object sender, EventArgs e) {
             WorkingProfile.AppPriority = (ProcessPriorityClass)priorityComboBox.SelectedValue;
+        }
+
+        private void ProfileEditForm_FormClosing(object sender, FormClosingEventArgs e) {
+            var result = MessageBox.Show("Save changes?", "Edit Profile", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            switch (result){
+                case DialogResult.Yes:
+                    if (!SaveProfile()) e.Cancel = true;
+                    break;
+                case DialogResult.No:
+                    WorkingProfile.DiscardChanges();
+                    break;
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
     }
 }

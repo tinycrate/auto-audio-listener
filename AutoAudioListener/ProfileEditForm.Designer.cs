@@ -383,6 +383,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ProfileEditForm";
             this.Text = "Edit Profile";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProfileEditForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).EndInit();
             this.noiseFloorGroupBox.ResumeLayout(false);
             this.noiseFloorGroupBox.PerformLayout();
