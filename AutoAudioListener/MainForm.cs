@@ -204,6 +204,12 @@ namespace AutoAudioListener {
             }
         }
 
+        private void OpenEditForm() {
+            var profile = (CustomProfile)profileComboBox.SelectedItem;
+            var editForm = new ProfileEditForm(profile);
+            editForm.ShowDialog();
+        }
+
         private void ResetVolumeControls() {
             leftVolumeBar.Value = 0;
             rightVolumeBar.Value = 0;
@@ -298,13 +304,23 @@ namespace AutoAudioListener {
         }
 
         private void addProfileButton_Click(object sender, EventArgs e) {
-            MessageBox.Show("Not Implemented!");
+            string newProfileId = CustomProfile.NewProfileFromDefault().Id;
+            BindProfileList();
+            profileComboBox.SelectedItem = profileComboBox.Items.Cast<CustomProfile>().First(x => x.Id == newProfileId);
+            profileComboBox.Focus();
+            OpenEditForm();
         }
 
         private void editProfileButton_Click(object sender, EventArgs e) {
-            var profile = (CustomProfile)profileComboBox.SelectedItem;
-            var editForm = new ProfileEditForm(profile);
-            editForm.ShowDialog();
+            OpenEditForm();
+        }
+
+        private void deleteProfileButton_Click(object sender, EventArgs e) {
+            CustomProfile.DeleteProfile((CustomProfile)profileComboBox.SelectedItem);
+            if (profileComboBox.Items.Count <= 1) {
+                CustomProfile.CreateDefaultProfile();   
+            }
+            BindProfileList();
         }
     }
 }

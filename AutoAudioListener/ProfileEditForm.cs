@@ -22,13 +22,18 @@ namespace AutoAudioListener {
 
         public ProfileEditForm(CustomProfile workingProfile) {
             InitializeComponent();
+            ChangeWorkingProfile(workingProfile);
+        }
+
+        public CustomProfile WorkingProfile { get; private set; }
+
+        public void ChangeWorkingProfile(CustomProfile workingProfile) {
             this.WorkingProfile = workingProfile;
             BindProfileData();
         }
 
-        CustomProfile WorkingProfile { get; }
-
         private void BindProfileData() {
+            this.Text = $"Edit Profile - [{WorkingProfile.Name}]";
             noiseFloorValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "SlienceLevel", false, DataSourceUpdateMode.OnPropertyChanged);
             activeLevelValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "ActiveLevel", false, DataSourceUpdateMode.OnPropertyChanged);
             inputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "PreferredInputLatency", false, DataSourceUpdateMode.OnPropertyChanged);

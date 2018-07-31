@@ -41,13 +41,13 @@
             this.rightVolumeBar = new AutoAudioListener.Controls.VolumeMeterBar();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.profileGroupBox = new System.Windows.Forms.GroupBox();
+            this.deleteProfileButton = new System.Windows.Forms.Button();
             this.addProfileButton = new System.Windows.Forms.Button();
             this.editProfileButton = new System.Windows.Forms.Button();
             this.controlsGroupBox = new System.Windows.Forms.GroupBox();
             this.viewLogsButton = new System.Windows.Forms.Button();
             this.startStopListeningButton = new System.Windows.Forms.Button();
             this.runAtStartupCheckBox = new System.Windows.Forms.CheckBox();
-            this.deleteProfileButton = new System.Windows.Forms.Button();
             this.trayMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.inputDeviceGroupBox.SuspendLayout();
@@ -250,6 +250,16 @@
             this.profileGroupBox.TabStop = false;
             this.profileGroupBox.Text = "3. Profile";
             // 
+            // deleteProfileButton
+            // 
+            this.deleteProfileButton.Location = new System.Drawing.Point(75, 47);
+            this.deleteProfileButton.Name = "deleteProfileButton";
+            this.deleteProfileButton.Size = new System.Drawing.Size(20, 23);
+            this.deleteProfileButton.TabIndex = 3;
+            this.deleteProfileButton.Text = "-";
+            this.deleteProfileButton.UseVisualStyleBackColor = true;
+            this.deleteProfileButton.Click += new System.EventHandler(this.deleteProfileButton_Click);
+            // 
             // addProfileButton
             // 
             this.addProfileButton.Location = new System.Drawing.Point(6, 47);
@@ -316,15 +326,6 @@
             this.runAtStartupCheckBox.Text = "Run at startup";
             this.runAtStartupCheckBox.UseVisualStyleBackColor = true;
             this.runAtStartupCheckBox.CheckedChanged += new System.EventHandler(this.runAtStartupCheckBox_CheckedChanged);
-            // 
-            // deleteProfileButton
-            // 
-            this.deleteProfileButton.Location = new System.Drawing.Point(75, 47);
-            this.deleteProfileButton.Name = "deleteProfileButton";
-            this.deleteProfileButton.Size = new System.Drawing.Size(20, 23);
-            this.deleteProfileButton.TabIndex = 3;
-            this.deleteProfileButton.Text = "-";
-            this.deleteProfileButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
