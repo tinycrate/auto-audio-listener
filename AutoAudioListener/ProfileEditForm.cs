@@ -34,10 +34,15 @@ namespace AutoAudioListener {
 
         private void BindProfileData() {
             this.Text = $"Edit Profile - [{WorkingProfile.Name}]";
+            noiseFloorValueBox.DataBindings.Clear();
             noiseFloorValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "SlienceLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            activeLevelValueBox.DataBindings.Clear();
             activeLevelValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "ActiveLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            inputLatencyValueBox.DataBindings.Clear();
             inputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "PreferredInputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            outputLatencyValueBox.DataBindings.Clear();
             outputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "PreferredOutputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            timeoutValueBox.DataBindings.Clear();
             timeoutValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "ActiveTimeoutMilliseconds", false, DataSourceUpdateMode.OnPropertyChanged);
             priorityComboBox.DataSource = new BindingSource(ProcessPriority, null);
             priorityComboBox.DisplayMember = "Key";
@@ -60,6 +65,11 @@ namespace AutoAudioListener {
                 FormClosing -= ProfileEditForm_FormClosing;
                 this.Close();
             }
+        }
+
+        private void RestoreDefaultButton_Click(object sender, EventArgs e) {
+            WorkingProfile.RestoreDefault();
+            BindProfileData();
         }
 
         private void priorityComboBox_SelectionChangeCommitted(object sender, EventArgs e) {

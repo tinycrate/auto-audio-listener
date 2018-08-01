@@ -28,10 +28,12 @@
             this.noiseFloorValueBox = new System.Windows.Forms.NumericUpDown();
             this.noiseFloorAutoDetectButton = new System.Windows.Forms.Button();
             this.noiseFloorGroupBox = new System.Windows.Forms.GroupBox();
+            this.noiseFloorSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
             this.activeLevelDescriptionLabel = new System.Windows.Forms.Label();
             this.activeLevelValueBox = new System.Windows.Forms.NumericUpDown();
             this.activeLevelAutoDetectButton = new System.Windows.Forms.Button();
             this.activeLevelGroupBox = new System.Windows.Forms.GroupBox();
+            this.activeLevelSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
             this.inputLatencyLabel = new System.Windows.Forms.Label();
             this.inputLatencyValueBox = new System.Windows.Forms.NumericUpDown();
             this.outputLatencyLabel = new System.Windows.Forms.Label();
@@ -46,8 +48,7 @@
             this.priorityLabel = new System.Windows.Forms.Label();
             this.priorityComboBox = new System.Windows.Forms.ComboBox();
             this.priorityGroupBox = new System.Windows.Forms.GroupBox();
-            this.activeLevelSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
-            this.noiseFloorSensitivityControl = new AutoAudioListener.Controls.VolumeSensitivityControl();
+            this.RestoreDefaultButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.noiseFloorValueBox)).BeginInit();
             this.noiseFloorGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.activeLevelValueBox)).BeginInit();
@@ -63,7 +64,7 @@
             // saveButton
             // 
             this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.saveButton.Location = new System.Drawing.Point(152, 490);
+            this.saveButton.Location = new System.Drawing.Point(280, 493);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 9;
@@ -126,6 +127,14 @@
             this.noiseFloorGroupBox.TabStop = false;
             this.noiseFloorGroupBox.Text = "Noise Floor Level";
             // 
+            // noiseFloorSensitivityControl
+            // 
+            this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
+            this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.noiseFloorSensitivityControl.TabIndex = 0;
+            // 
             // activeLevelDescriptionLabel
             // 
             this.activeLevelDescriptionLabel.AutoSize = true;
@@ -180,6 +189,14 @@
             this.activeLevelGroupBox.TabIndex = 3;
             this.activeLevelGroupBox.TabStop = false;
             this.activeLevelGroupBox.Text = "Active Level";
+            // 
+            // activeLevelSensitivityControl
+            // 
+            this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
+            this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
+            this.activeLevelSensitivityControl.TabIndex = 0;
             // 
             // inputLatencyLabel
             // 
@@ -353,27 +370,22 @@
             this.priorityGroupBox.TabStop = false;
             this.priorityGroupBox.Text = "Process Priority";
             // 
-            // activeLevelSensitivityControl
+            // RestoreDefaultButton
             // 
-            this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
-            this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
-            this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
-            this.activeLevelSensitivityControl.TabIndex = 0;
-            // 
-            // noiseFloorSensitivityControl
-            // 
-            this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
-            this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
-            this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
-            this.noiseFloorSensitivityControl.TabIndex = 0;
+            this.RestoreDefaultButton.Location = new System.Drawing.Point(12, 493);
+            this.RestoreDefaultButton.Name = "RestoreDefaultButton";
+            this.RestoreDefaultButton.Size = new System.Drawing.Size(98, 23);
+            this.RestoreDefaultButton.TabIndex = 10;
+            this.RestoreDefaultButton.Text = "Restore Default";
+            this.RestoreDefaultButton.UseVisualStyleBackColor = true;
+            this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultButton_Click);
             // 
             // ProfileEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 528);
+            this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.priorityGroupBox);
             this.Controls.Add(this.timeoutGroupBox);
@@ -430,5 +442,6 @@
         private System.Windows.Forms.Label priorityLabel;
         private System.Windows.Forms.ComboBox priorityComboBox;
         private System.Windows.Forms.GroupBox priorityGroupBox;
+        private System.Windows.Forms.Button RestoreDefaultButton;
     }
 }
