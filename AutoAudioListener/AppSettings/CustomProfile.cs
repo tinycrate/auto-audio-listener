@@ -136,7 +136,8 @@ namespace AutoAudioListener.AppSettings {
         public bool ValidateData() {
             if (ActiveListenerFormat.SlienceLevel >= 0 && ActiveListenerFormat.SlienceLevel <= 1 &&
                 ActiveListenerFormat.ActiveLevel >= 0 && ActiveListenerFormat.ActiveLevel <= 1 &&
-                ActiveListenerFormat.PreferredInputLatency > 0 && ActiveListenerFormat.PreferredOutputLatency > 0
+                ActiveListenerFormat.PreferredInputLatency > 0 && ActiveListenerFormat.PreferredOutputLatency > 0 &&
+                ActiveListenerFormat.ActiveLevel >= ActiveListenerFormat.SlienceLevel
                 ) {
                 return true;
             } else {
