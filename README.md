@@ -1,14 +1,14 @@
-# Auto Audio Listener (Work in progress)
+# Auto Audio Listener
 
 A simple tool to "listen" to an audio device, similar to Windows "Listen to this device" but with additional features. Implemented with NAudio
 
 ## Features it should have
 
-- Direct audio from an input device (line in/mic) to an output device (Done)
+- Direct audio from an input device (line in/mic) to an output device
 - Mute audio when input audio is below certain volume to eliminate noise floor while nothing is playing
 - Fade in when the input audio becomes alive again
 - Decent looking volume meter
-- Customizable settings (Work in progress)
+- Customizable settings
 - Run on startup
 
 Many UI are missing by the time you see this page, so there are very few settings to change.
