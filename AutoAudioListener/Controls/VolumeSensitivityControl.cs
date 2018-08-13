@@ -27,11 +27,13 @@ namespace AutoAudioListener.Controls {
         public MMDevice MonitoringDevice { get; private set; }
 
         public void SetValue(float value) {
-            Value = value;
-            UpperRange = Math.Min(1, Value * (1 + MaxZoomFactor));
-            LowerRange = Math.Max(0, Value * (1 - MaxZoomFactor));
-            ManualUpdated = true;
-            UpdateTrackPosition();
+            if (value >= 0.00001f) {
+                Value = value;
+                UpperRange = Math.Min(1, Value * (1 + MaxZoomFactor));
+                LowerRange = Math.Max(0, Value * (1 - MaxZoomFactor));
+                ManualUpdated = true;
+                UpdateTrackPosition();
+            }
         }
         
         public void SetMonitoringDevice(MMDevice device) {

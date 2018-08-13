@@ -148,14 +148,14 @@ namespace AutoAudioListener {
         private void noiseFloorValueBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
                 noiseFloorSensitivityControl.SetValue((float)noiseFloorValueBox.Value);
-                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
 
         private void activeLevelValueBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
                 activeLevelSensitivityControl.SetValue((float)activeLevelValueBox.Value);
-                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
     }
