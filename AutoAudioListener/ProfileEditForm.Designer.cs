@@ -78,9 +78,9 @@
             this.noiseFloorDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.noiseFloorDescriptionLabel.Location = new System.Drawing.Point(6, 18);
             this.noiseFloorDescriptionLabel.Name = "noiseFloorDescriptionLabel";
-            this.noiseFloorDescriptionLabel.Size = new System.Drawing.Size(314, 12);
+            this.noiseFloorDescriptionLabel.Size = new System.Drawing.Size(332, 12);
             this.noiseFloorDescriptionLabel.TabIndex = 1;
-            this.noiseFloorDescriptionLabel.Text = "Volume level below this value will be considered complete slience.";
+            this.noiseFloorDescriptionLabel.Text = "Volume level below this threshold will be considered complete slience.";
             // 
             // noiseFloorValueBox
             // 
@@ -101,6 +101,7 @@
             this.noiseFloorValueBox.Size = new System.Drawing.Size(77, 22);
             this.noiseFloorValueBox.TabIndex = 0;
             this.noiseFloorValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.noiseFloorValueBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.noiseFloorValueBox_KeyDown);
             // 
             // noiseFloorAutoDetectButton
             // 
@@ -131,9 +132,11 @@
             // 
             this.noiseFloorSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.noiseFloorSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.noiseFloorSensitivityControl.MaxZoomFactor = 1F;
             this.noiseFloorSensitivityControl.Name = "noiseFloorSensitivityControl";
             this.noiseFloorSensitivityControl.Size = new System.Drawing.Size(246, 47);
             this.noiseFloorSensitivityControl.TabIndex = 0;
+            this.noiseFloorSensitivityControl.ValueChanged += new System.EventHandler(this.noiseFloorSensitivityControl_ValueChanged);
             // 
             // activeLevelDescriptionLabel
             // 
@@ -141,9 +144,9 @@
             this.activeLevelDescriptionLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.activeLevelDescriptionLabel.Location = new System.Drawing.Point(6, 18);
             this.activeLevelDescriptionLabel.Name = "activeLevelDescriptionLabel";
-            this.activeLevelDescriptionLabel.Size = new System.Drawing.Size(216, 12);
+            this.activeLevelDescriptionLabel.Size = new System.Drawing.Size(262, 12);
             this.activeLevelDescriptionLabel.TabIndex = 1;
-            this.activeLevelDescriptionLabel.Text = "Volume level above this will trigger listening.";
+            this.activeLevelDescriptionLabel.Text = "Volume level above this threshold will trigger listening.";
             // 
             // activeLevelValueBox
             // 
@@ -164,6 +167,7 @@
             this.activeLevelValueBox.Size = new System.Drawing.Size(77, 22);
             this.activeLevelValueBox.TabIndex = 0;
             this.activeLevelValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.activeLevelValueBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.activeLevelValueBox_KeyDown);
             // 
             // activeLevelAutoDetectButton
             // 
@@ -194,9 +198,11 @@
             // 
             this.activeLevelSensitivityControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.activeLevelSensitivityControl.Location = new System.Drawing.Point(8, 40);
+            this.activeLevelSensitivityControl.MaxZoomFactor = 1F;
             this.activeLevelSensitivityControl.Name = "activeLevelSensitivityControl";
             this.activeLevelSensitivityControl.Size = new System.Drawing.Size(246, 47);
             this.activeLevelSensitivityControl.TabIndex = 0;
+            this.activeLevelSensitivityControl.ValueChanged += new System.EventHandler(this.activeLevelSensitivityControl_ValueChanged);
             // 
             // inputLatencyLabel
             // 
@@ -393,6 +399,8 @@
             this.Controls.Add(this.activeLevelGroupBox);
             this.Controls.Add(this.noiseFloorGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ProfileEditForm";
             this.Text = "Edit Profile";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProfileEditForm_FormClosing);

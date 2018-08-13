@@ -168,7 +168,7 @@
     <Compile Include="Controls\AutomaticScrollingListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ColorableProgressBar.cs">
+    <Compile Include="Controls\VolumeSensitivityBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\VolumeMeterBar.cs">

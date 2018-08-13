@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoAudioListener.AppSettings;
 using System.Diagnostics;
+using NAudio.CoreAudioApi;
 
 namespace AutoAudioListener {
     public partial class ProfileEditForm : Form {
@@ -26,6 +27,32 @@ namespace AutoAudioListener {
         }
 
         public CustomProfile WorkingProfile { get; private set; }
+
+        public bool Dirty { get; private set; } = true;
+
+        private WasapiCapture _monitoringCapture;
+        private MMDevice _monitoringDevice;
+        private MMDevice MonitoringDevice {
+            get {
+                if (_monitoringDevice == null && WorkingProfile != null) {
+                    using (var devices = new MMDeviceEnumerator()) {
+                        _monitoringDevice = devices.GetDevice(WorkingProfile.ActiveListenerFormat.InputDeviceID);
+                        _monitoringCapture = new WasapiCapture(_monitoringDevice);
+                        _monitoringCapture.StartRecording();
+                    }
+                }
+                return _monitoringDevice;
+            }
+            set {
+                _monitoringCapture?.StopRecording();
+                _monitoringCapture?.Dispose();
+                _monitoringDevice?.Dispose();
+                if (value != null) {
+                    _monitoringCapture = new WasapiCapture(_monitoringDevice);
+                    _monitoringCapture.StartRecording();
+                }
+            }
+        }
 
         public void ChangeWorkingProfile(CustomProfile workingProfile) {
             this.WorkingProfile = workingProfile;
@@ -48,6 +75,10 @@ namespace AutoAudioListener {
             priorityComboBox.DisplayMember = "Key";
             priorityComboBox.ValueMember = "Value";
             priorityComboBox.SelectedItem = ProcessPriority.First(s => s.Value == WorkingProfile.AppPriority);
+            noiseFloorSensitivityControl.SetMonitoringDevice(MonitoringDevice);
+            noiseFloorSensitivityControl.SetValue(WorkingProfile.ActiveListenerFormat.SlienceLevel);
+            activeLevelSensitivityControl.SetMonitoringDevice(MonitoringDevice);
+            activeLevelSensitivityControl.SetValue(WorkingProfile.ActiveListenerFormat.ActiveLevel);
         }
 
         private bool SaveProfile() {
@@ -62,7 +93,7 @@ namespace AutoAudioListener {
 
         private void saveButton_Click(object sender, EventArgs e) {
             if (SaveProfile()) {
-                FormClosing -= ProfileEditForm_FormClosing;
+                Dirty = false;
                 this.Close();
             }
         }
@@ -77,8 +108,17 @@ namespace AutoAudioListener {
         }
 
         private void ProfileEditForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if (Dirty) {
+                SavePrompt(e);
+            }
+            if (!e.Cancel) {
+                DisposeResources();
+            }
+        }
+
+        private void SavePrompt(FormClosingEventArgs e) {
             var result = MessageBox.Show("Save changes?", "Edit Profile", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            switch (result){
+            switch (result) {
                 case DialogResult.Yes:
                     if (!SaveProfile()) e.Cancel = true;
                     break;
@@ -88,6 +128,34 @@ namespace AutoAudioListener {
                 case DialogResult.Cancel:
                     e.Cancel = true;
                     break;
+            }
+        }
+
+        private void DisposeResources() {
+            noiseFloorSensitivityControl.StopMonitoring();
+            activeLevelSensitivityControl.StopMonitoring();
+            MonitoringDevice = null;
+        }
+
+        private void noiseFloorSensitivityControl_ValueChanged(object sender, EventArgs e) {
+            noiseFloorValueBox.Value = (decimal)noiseFloorSensitivityControl.Value; 
+        }
+
+        private void activeLevelSensitivityControl_ValueChanged(object sender, EventArgs e) {
+            activeLevelValueBox.Value = (decimal)activeLevelSensitivityControl.Value;
+        }
+
+        private void noiseFloorValueBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                noiseFloorSensitivityControl.SetValue((float)noiseFloorValueBox.Value);
+                e.Handled = true;
+            }
+        }
+
+        private void activeLevelValueBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                activeLevelSensitivityControl.SetValue((float)activeLevelValueBox.Value);
+                e.Handled = true;
             }
         }
     }

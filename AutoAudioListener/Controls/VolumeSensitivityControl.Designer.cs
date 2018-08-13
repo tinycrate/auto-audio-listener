@@ -23,50 +23,64 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.colorableProgressBar1 = new AutoAudioListener.Controls.ColorableProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.sensitivityTrackBar = new System.Windows.Forms.TrackBar();
+            this.updateTimer = new System.Windows.Forms.Timer(this.components);
+            this.sensitivityBar = new AutoAudioListener.Controls.VolumeSensitivityBar();
+            ((System.ComponentModel.ISupportInitialize)(this.sensitivityTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
-            // trackBar1
+            // sensitivityTrackBar
             // 
-            this.trackBar1.AutoSize = false;
-            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.trackBar1.Location = new System.Drawing.Point(0, 22);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.MaximumSize = new System.Drawing.Size(0, 25);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(151, 25);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.trackBar1.Value = 50;
+            this.sensitivityTrackBar.AutoSize = false;
+            this.sensitivityTrackBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.sensitivityTrackBar.Location = new System.Drawing.Point(0, 22);
+            this.sensitivityTrackBar.Maximum = 1000;
+            this.sensitivityTrackBar.MaximumSize = new System.Drawing.Size(0, 25);
+            this.sensitivityTrackBar.Name = "sensitivityTrackBar";
+            this.sensitivityTrackBar.Size = new System.Drawing.Size(151, 25);
+            this.sensitivityTrackBar.TabIndex = 0;
+            this.sensitivityTrackBar.TickFrequency = 100;
+            this.sensitivityTrackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.sensitivityTrackBar.Value = 500;
+            this.sensitivityTrackBar.ValueChanged += new System.EventHandler(this.sensitivityTrackBar_ValueChanged);
             // 
-            // colorableProgressBar1
+            // updateTimer
             // 
-            this.colorableProgressBar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.colorableProgressBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(176)))), ((int)(((byte)(37)))));
-            this.colorableProgressBar1.Location = new System.Drawing.Point(0, 0);
-            this.colorableProgressBar1.Name = "colorableProgressBar1";
-            this.colorableProgressBar1.Size = new System.Drawing.Size(151, 23);
-            this.colorableProgressBar1.TabIndex = 1;
+            this.updateTimer.Interval = 1;
+            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
+            // 
+            // sensitivityBar
+            // 
+            this.sensitivityBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sensitivityBar.Location = new System.Drawing.Point(0, 0);
+            this.sensitivityBar.Maximum = 1000;
+            this.sensitivityBar.Name = "sensitivityBar";
+            this.sensitivityBar.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(176)))), ((int)(((byte)(37)))));
+            this.sensitivityBar.NormalIndicatorColor = System.Drawing.Color.RoyalBlue;
+            this.sensitivityBar.Size = new System.Drawing.Size(151, 23);
+            this.sensitivityBar.TabIndex = 1;
+            this.sensitivityBar.Threshold = 500;
+            this.sensitivityBar.TriggeredColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(191)))), ((int)(((byte)(68)))));
+            this.sensitivityBar.TriggeredIndicatorColor = System.Drawing.Color.GreenYellow;
             // 
             // VolumeSensitivityControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.colorableProgressBar1);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.sensitivityBar);
+            this.Controls.Add(this.sensitivityTrackBar);
             this.Name = "VolumeSensitivityControl";
             this.Size = new System.Drawing.Size(151, 47);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sensitivityTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TrackBar trackBar1;
-        private ColorableProgressBar colorableProgressBar1;
+        private System.Windows.Forms.TrackBar sensitivityTrackBar;
+        private VolumeSensitivityBar sensitivityBar;
+        private System.Windows.Forms.Timer updateTimer;
     }
 }
