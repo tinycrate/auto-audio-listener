@@ -18,6 +18,15 @@ using System.Diagnostics;
 namespace AutoAudioListener {
     public partial class MainForm : Form {
 
+        private static void CheckRunningEnvironment() {
+            using (var devices = new NAudio.CoreAudioApi.MMDeviceEnumerator()) {
+                if (devices.HasDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia) &&
+                    devices.HasDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia)) return;
+                MessageBox.Show("No audio recording or playback found on this device. The application will now exit.", "Critical Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
+        }
+
         private ActiveAudioListener _mainaudioListener;
         private ActiveAudioListener MainAudioListener {
             get {
@@ -34,6 +43,7 @@ namespace AutoAudioListener {
         public TimestampMessageLogger EventHistory { get; set; } = new TimestampMessageLogger("hh:mm:ss:fff");
         
         public MainForm() {
+            CheckRunningEnvironment();
             InitializeComponent();
             SetUpIcons();
             BindDataSources();
@@ -41,7 +51,7 @@ namespace AutoAudioListener {
             RestoreSelectedProfileFromPreferences();
             RestoreSelectedDevicesFromProfile();
         }
-
+        
         private void SetUpIcons() {
             var icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             this.Icon = icon;
