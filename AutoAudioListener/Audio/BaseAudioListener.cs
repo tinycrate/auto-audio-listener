@@ -36,7 +36,7 @@ namespace AutoAudioListener.Audio {
                 if (channelCount >= 1 && channelCount <= 2) {
                     return inputDevice.AudioMeterInformation.PeakValues[0];
                 }
-                throw new NotImplementedException(
+                throw new NotSupportedException(
                     "Audio Listener:: Audio streams other than mono or stereo are currently not supported."
                 );
             }
@@ -51,7 +51,7 @@ namespace AutoAudioListener.Audio {
                 if (channelCount == 1) { // Mono stream
                     return inputDevice.AudioMeterInformation.PeakValues[0];
                 }
-                throw new NotImplementedException(
+                throw new NotSupportedException(
                     "Audio Listener:: Audio streams other than mono or stereo are currently not supported."
                 );
             }

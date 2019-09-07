@@ -13,7 +13,7 @@ namespace AutoAudioListener.Audio {
             InitializeTimer(synchronizingObject);
         }
 
-        public AudioListenerFormat Format => (AudioListenerFormat) base.Format;
+        public new AudioListenerFormat Format => (AudioListenerFormat) base.Format;
 
         public bool AudioActive { get; private set; }
         public DateTime LastActiveTime { get; private set; } = DateTime.Now;
@@ -69,7 +69,9 @@ namespace AutoAudioListener.Audio {
                     ActivateAudio();
                 }
             }
-            if (outputVolume != CurrentOutputVolume) OutputVolumeChanged?.Invoke(this, EventArgs.Empty);
+            if (Math.Abs(outputVolume - CurrentOutputVolume) > 0.00001) {
+                OutputVolumeChanged?.Invoke(this, EventArgs.Empty);
+            }
             if (timer.Enabled) OutputVolumeUpdated?.Invoke(this, EventArgs.Empty);
         }
 
