@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using AutoAudioListener.Audio;
-using System.Diagnostics;
 
 namespace AutoAudioListener.AppSettings {
     public class Profile {
-
-        protected Profile() {
-        }
+        protected Profile() { }
 
         public static Profile Default {
             get {

@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoAudioListener.AppSettings;
-using System.Diagnostics;
 using NAudio.CoreAudioApi;
 
 namespace AutoAudioListener {
     public partial class ProfileEditForm : Form {
+        private readonly Dictionary<string, ProcessPriorityClass> ProcessPriority =
+            new Dictionary<string, ProcessPriorityClass> {
+                {"Normal", ProcessPriorityClass.Normal},
+                {"Above Normal (Recommended)", ProcessPriorityClass.AboveNormal},
+                {"High (Low Latency Support)", ProcessPriorityClass.High},
+                {"RealTime (Not Recommeneded)", ProcessPriorityClass.RealTime}
+            };
 
-        private readonly Dictionary<string, ProcessPriorityClass> ProcessPriority = new Dictionary<string, ProcessPriorityClass>{
-            { "Normal", ProcessPriorityClass.Normal },
-            { "Above Normal (Recommended)", ProcessPriorityClass.AboveNormal },
-            { "High (Low Latency Support)", ProcessPriorityClass.High },
-            { "RealTime (Not Recommeneded)", ProcessPriorityClass.RealTime }
-        };
+        private WasapiCapture _monitoringCapture;
+        private MMDevice _monitoringDevice;
 
         public ProfileEditForm(CustomProfile workingProfile) {
             InitializeComponent();
@@ -30,8 +28,6 @@ namespace AutoAudioListener {
 
         public bool Dirty { get; private set; } = true;
 
-        private WasapiCapture _monitoringCapture;
-        private MMDevice _monitoringDevice;
         private MMDevice MonitoringDevice {
             get {
                 if (_monitoringDevice == null && WorkingProfile != null) {
@@ -55,22 +51,52 @@ namespace AutoAudioListener {
         }
 
         public void ChangeWorkingProfile(CustomProfile workingProfile) {
-            this.WorkingProfile = workingProfile;
+            WorkingProfile = workingProfile;
             BindProfileData();
         }
 
         private void BindProfileData() {
-            this.Text = $"Edit Profile - [{WorkingProfile.Name}]";
+            Text = $"Edit Profile - [{WorkingProfile.Name}]";
             noiseFloorValueBox.DataBindings.Clear();
-            noiseFloorValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "SilenceLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            noiseFloorValueBox.DataBindings.Add(
+                "Value",
+                WorkingProfile.ListenerFormat,
+                "SilenceLevel",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
             activeLevelValueBox.DataBindings.Clear();
-            activeLevelValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "ActiveLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            activeLevelValueBox.DataBindings.Add(
+                "Value",
+                WorkingProfile.ListenerFormat,
+                "ActiveLevel",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
             inputLatencyValueBox.DataBindings.Clear();
-            inputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "PreferredInputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            inputLatencyValueBox.DataBindings.Add(
+                "Value",
+                WorkingProfile.ListenerFormat,
+                "PreferredInputLatency",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
             outputLatencyValueBox.DataBindings.Clear();
-            outputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "PreferredOutputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            outputLatencyValueBox.DataBindings.Add(
+                "Value",
+                WorkingProfile.ListenerFormat,
+                "PreferredOutputLatency",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
             timeoutValueBox.DataBindings.Clear();
-            timeoutValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "ActiveTimeoutMilliseconds", false, DataSourceUpdateMode.OnPropertyChanged);
+            timeoutValueBox.DataBindings.Add(
+                "Value",
+                WorkingProfile.ListenerFormat,
+                "ActiveTimeoutMilliseconds",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
             priorityComboBox.DataSource = new BindingSource(ProcessPriority, null);
             priorityComboBox.DisplayMember = "Key";
             priorityComboBox.ValueMember = "Value";
@@ -85,16 +111,20 @@ namespace AutoAudioListener {
             if (WorkingProfile.ValidateData()) {
                 WorkingProfile.SaveChanges();
                 return true;
-            } else {
-                MessageBox.Show("Some field you've inputted is invalid!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
             }
+            MessageBox.Show(
+                "Some field you've inputted is invalid!",
+                "Warning",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning
+            );
+            return false;
         }
 
         private void saveButton_Click(object sender, EventArgs e) {
             if (SaveProfile()) {
                 Dirty = false;
-                this.Close();
+                Close();
             }
         }
 
@@ -104,7 +134,7 @@ namespace AutoAudioListener {
         }
 
         private void priorityComboBox_SelectionChangeCommitted(object sender, EventArgs e) {
-            WorkingProfile.AppPriority = (ProcessPriorityClass)priorityComboBox.SelectedValue;
+            WorkingProfile.AppPriority = (ProcessPriorityClass) priorityComboBox.SelectedValue;
         }
 
         private void ProfileEditForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -117,7 +147,12 @@ namespace AutoAudioListener {
         }
 
         private void SavePrompt(FormClosingEventArgs e) {
-            var result = MessageBox.Show("Save changes?", "Edit Profile", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            var result = MessageBox.Show(
+                "Save changes?",
+                "Edit Profile",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question
+            );
             switch (result) {
                 case DialogResult.Yes:
                     if (!SaveProfile()) e.Cancel = true;
@@ -138,23 +173,23 @@ namespace AutoAudioListener {
         }
 
         private void noiseFloorSensitivityControl_ValueChanged(object sender, EventArgs e) {
-            noiseFloorValueBox.Value = (decimal)noiseFloorSensitivityControl.Value; 
+            noiseFloorValueBox.Value = (decimal) noiseFloorSensitivityControl.Value;
         }
 
         private void activeLevelSensitivityControl_ValueChanged(object sender, EventArgs e) {
-            activeLevelValueBox.Value = (decimal)activeLevelSensitivityControl.Value;
+            activeLevelValueBox.Value = (decimal) activeLevelSensitivityControl.Value;
         }
 
         private void noiseFloorValueBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
-                noiseFloorSensitivityControl.SetValue((float)noiseFloorValueBox.Value);
+                noiseFloorSensitivityControl.SetValue((float) noiseFloorValueBox.Value);
                 e.SuppressKeyPress = true;
             }
         }
 
         private void activeLevelValueBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
-                activeLevelSensitivityControl.SetValue((float)activeLevelValueBox.Value);
+                activeLevelSensitivityControl.SetValue((float) activeLevelValueBox.Value);
                 e.SuppressKeyPress = true;
             }
         }

@@ -1,14 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace AutoAudioListener.Utils {
     public class AutoStartup {
-
         public static readonly string AutostartFlag = "/autostart";
 
         public static bool Enabled {
@@ -32,6 +28,5 @@ namespace AutoAudioListener.Utils {
                 return args.Contains(AutostartFlag);
             }
         }
-
     }
 }

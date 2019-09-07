@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoAudioListener.Controls {
-    class VolumeSensitivityBar : ProgressBar {
+    internal class VolumeSensitivityBar : ProgressBar {
+        public VolumeSensitivityBar() {
+            // Set ControlStyles flags as instructed by Microsoft docs for overriding OnPaint and reducing flickers
+            // http://msdn.microsoft.com/en-us/library/system.windows.forms.controlstyles.aspx
+            SetStyle(
+                ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
+                true
+            );
+        }
 
         public Color NormalColor { get; set; } = Color.FromArgb(255, 6, 176, 37);
         public Color TriggeredColor { get; set; } = Color.FromArgb(255, 42, 191, 68);
@@ -17,24 +21,28 @@ namespace AutoAudioListener.Controls {
 
         public int Threshold { get; set; } = 500;
 
-        public VolumeSensitivityBar() {
-            // Set ControlStyles flags as instructed by Microsoft docs for overriding OnPaint and reducing flickers
-            // http://msdn.microsoft.com/en-us/library/system.windows.forms.controlstyles.aspx
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
-
         protected override void OnPaint(PaintEventArgs e) {
-            Rectangle rect = ClientRectangle;
-            Graphics g = e.Graphics;
+            var rect = ClientRectangle;
+            var g = e.Graphics;
             ProgressBarRenderer.DrawHorizontalBar(g, rect);
             rect.Inflate(-1, -1);
             if (Value > 0) {
-                var barRect = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)Value / Maximum) * rect.Width), rect.Height);
-                var barColor = (Value >= Threshold) ? TriggeredColor : NormalColor;
+                var barRect = new Rectangle(
+                    rect.X,
+                    rect.Y,
+                    (int) Math.Round((float) Value / Maximum * rect.Width),
+                    rect.Height
+                );
+                var barColor = Value >= Threshold ? TriggeredColor : NormalColor;
                 var barBrush = new SolidBrush(barColor);
                 e.Graphics.FillRectangle(barBrush, barRect);
-                var thresholdIndicatorRect = new Rectangle(rect.X + (int)Math.Round((float)Threshold / Maximum * rect.Width), rect.Y, 1, rect.Height);
-                var thresholdIndicatorColor = (Value >= Threshold) ? TriggeredIndicatorColor : NormalIndicatorColor;
+                var thresholdIndicatorRect = new Rectangle(
+                    rect.X + (int) Math.Round((float) Threshold / Maximum * rect.Width),
+                    rect.Y,
+                    1,
+                    rect.Height
+                );
+                var thresholdIndicatorColor = Value >= Threshold ? TriggeredIndicatorColor : NormalIndicatorColor;
                 var thresholdIndicatorBrush = new SolidBrush(thresholdIndicatorColor);
                 e.Graphics.FillRectangle(thresholdIndicatorBrush, thresholdIndicatorRect);
             }

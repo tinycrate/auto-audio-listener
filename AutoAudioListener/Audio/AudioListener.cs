@@ -1,39 +1,31 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace AutoAudioListener.Audio {
     public class AudioListener : BaseAudioListener {
+        private Timer timer;
 
-        public AudioListener(AudioListenerFormat listenerFormat, ISynchronizeInvoke synchronizingObject) : base(listenerFormat) {
+        public AudioListener(AudioListenerFormat listenerFormat, ISynchronizeInvoke synchronizingObject) : base(
+            listenerFormat
+        ) {
             MuteAudio();
             InitializeTimer(synchronizingObject);
         }
+
+        public AudioListenerFormat Format => (AudioListenerFormat) base.Format;
+
+        public bool AudioActive { get; private set; }
+        public DateTime LastActiveTime { get; private set; } = DateTime.Now;
+
+        private bool ActiveAudioExpired =>
+            DateTime.Now.Subtract(LastActiveTime).TotalMilliseconds > Format.ActiveTimeoutMilliseconds;
 
         public event EventHandler AudioActivated;
         public event EventHandler AudioDeactivated;
         public event EventHandler BufferVolumeTriggered;
         public event EventHandler OutputVolumeUpdated;
         public event EventHandler OutputVolumeChanged;
-
-        public new AudioListenerFormat Format {
-            get {
-                return (AudioListenerFormat)base.Format;
-            }
-        }
-        public bool AudioActive { get; private set; } = false;
-        public DateTime LastActiveTime { get; private set; } = DateTime.Now;
-
-        private System.Timers.Timer timer;
-
-        private bool ActiveAudioExpired {
-            get {
-                return DateTime.Now.Subtract(LastActiveTime).TotalMilliseconds > Format.ActiveTimeoutMilliseconds;
-            }
-        }
 
         public override void StartListening() {
             base.StartListening();
@@ -52,7 +44,7 @@ namespace AutoAudioListener.Audio {
         }
 
         private void InitializeTimer(ISynchronizeInvoke synchronizingObject) {
-            timer = new System.Timers.Timer(1) {
+            timer = new Timer(1) {
                 SynchronizingObject = synchronizingObject
             };
             timer.Elapsed += Timer_Elapsed;
@@ -68,8 +60,7 @@ namespace AutoAudioListener.Audio {
                     AudioFadein();
                     if (sourceVolume > Format.ActiveLevel) KeepAudioAlive();
                 }
-            } 
-            else {
+            } else {
                 if (sourceVolume < Format.SilenceLevel) {
                     AudioFadeout();
                 } else if (sourceVolume < Format.ActiveLevel) {
@@ -119,7 +110,7 @@ namespace AutoAudioListener.Audio {
             BufferVolumeTriggered?.Invoke(this, EventArgs.Empty);
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e) {
             UpdateOutputVolume();
         }
     }

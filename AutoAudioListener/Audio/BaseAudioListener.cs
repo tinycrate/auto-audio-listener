@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
 
 namespace AutoAudioListener.Audio {
     public abstract class BaseAudioListener : IDisposable {
-
         private MMDevice inputDevice;
-        private MMDevice outputDevice;
         private WasapiCapture inputStream;
+        private MMDevice outputDevice;
         private WasapiOut outputStream;
         private VolumeSampleProvider volumeControl;
 
         public BaseAudioListener(IBaseAudioListenerFormat listenerFormat) {
-            this.Format = listenerFormat;
+            Format = listenerFormat;
             InitializeDevices();
             InitializeInputStream();
             InitializeVolumeControl();
@@ -25,53 +20,46 @@ namespace AutoAudioListener.Audio {
         }
 
         public IBaseAudioListenerFormat Format { get; }
-        public bool Listening {
-            get {
-                return inputStream.CaptureState == CaptureState.Capturing;
-            }
-        }
+
+        public bool Listening => inputStream.CaptureState == CaptureState.Capturing;
+
         public float CurrentOutputVolume {
-            get {
-                return volumeControl.Volume;
-            }
-            set {
-                volumeControl.Volume = value;
-            }
+            get => volumeControl.Volume;
+            set => volumeControl.Volume = value;
         }
-        public float CurrentSourceVolume {
-            get {
-                return inputDevice.AudioMeterInformation.MasterPeakValue;
-            }
-        }
+
+        public float CurrentSourceVolume => inputDevice.AudioMeterInformation.MasterPeakValue;
+
         public float CurrentSourceVolumeLeft {
             get {
-                int channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
+                var channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
                 if (channelCount >= 1 && channelCount <= 2) {
                     return inputDevice.AudioMeterInformation.PeakValues[0];
-                } else {
-                    throw new NotImplementedException("Audio Listener:: Audio streams other than mono or stereo are currently not supported.");
                 }
+                throw new NotImplementedException(
+                    "Audio Listener:: Audio streams other than mono or stereo are currently not supported."
+                );
             }
         }
+
         public float CurrentSourceVolumeRight {
             get {
-                int channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
+                var channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
                 if (channelCount == 2) {
                     return inputDevice.AudioMeterInformation.PeakValues[1];
-                } else if (channelCount == 1) { // Mono stream
-                    return inputDevice.AudioMeterInformation.PeakValues[0];
-                } else {
-                    throw new NotImplementedException("Audio Listener:: Audio streams other than mono or stereo are currently not supported.");
                 }
+                if (channelCount == 1) { // Mono stream
+                    return inputDevice.AudioMeterInformation.PeakValues[0];
+                }
+                throw new NotImplementedException(
+                    "Audio Listener:: Audio streams other than mono or stereo are currently not supported."
+                );
             }
         }
+
         public event EventHandler<StoppedEventArgs> ListeningStopped {
-            add {
-                inputStream.RecordingStopped += value;
-            }
-            remove {
-                inputStream.RecordingStopped -= value;
-            }
+            add => inputStream.RecordingStopped += value;
+            remove => inputStream.RecordingStopped -= value;
         }
 
         public virtual void StartListening() {
@@ -114,7 +102,12 @@ namespace AutoAudioListener.Audio {
         }
 
         private void InitializeOutputStream() {
-            outputStream = new WasapiOut(outputDevice, AudioClientShareMode.Shared, false, Format.PreferredOutputLatency);
+            outputStream = new WasapiOut(
+                outputDevice,
+                AudioClientShareMode.Shared,
+                false,
+                Format.PreferredOutputLatency
+            );
             var convertedInputStreamProvider = new SampleToWaveProvider(volumeControl);
             outputStream.Init(convertedInputStreamProvider);
         }
