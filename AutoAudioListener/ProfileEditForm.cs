@@ -36,7 +36,7 @@ namespace AutoAudioListener {
             get {
                 if (_monitoringDevice == null && WorkingProfile != null) {
                     using (var devices = new MMDeviceEnumerator()) {
-                        _monitoringDevice = devices.GetDevice(WorkingProfile.ActiveListenerFormat.InputDeviceID);
+                        _monitoringDevice = devices.GetDevice(WorkingProfile.ListenerFormat.InputDeviceID);
                         _monitoringCapture = new WasapiCapture(_monitoringDevice);
                         _monitoringCapture.StartRecording();
                     }
@@ -62,23 +62,23 @@ namespace AutoAudioListener {
         private void BindProfileData() {
             this.Text = $"Edit Profile - [{WorkingProfile.Name}]";
             noiseFloorValueBox.DataBindings.Clear();
-            noiseFloorValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "SlienceLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            noiseFloorValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "SilenceLevel", false, DataSourceUpdateMode.OnPropertyChanged);
             activeLevelValueBox.DataBindings.Clear();
-            activeLevelValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "ActiveLevel", false, DataSourceUpdateMode.OnPropertyChanged);
+            activeLevelValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "ActiveLevel", false, DataSourceUpdateMode.OnPropertyChanged);
             inputLatencyValueBox.DataBindings.Clear();
-            inputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "PreferredInputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            inputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "PreferredInputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
             outputLatencyValueBox.DataBindings.Clear();
-            outputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "PreferredOutputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
+            outputLatencyValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "PreferredOutputLatency", false, DataSourceUpdateMode.OnPropertyChanged);
             timeoutValueBox.DataBindings.Clear();
-            timeoutValueBox.DataBindings.Add("Value", WorkingProfile.ActiveListenerFormat, "ActiveTimeoutMilliseconds", false, DataSourceUpdateMode.OnPropertyChanged);
+            timeoutValueBox.DataBindings.Add("Value", WorkingProfile.ListenerFormat, "ActiveTimeoutMilliseconds", false, DataSourceUpdateMode.OnPropertyChanged);
             priorityComboBox.DataSource = new BindingSource(ProcessPriority, null);
             priorityComboBox.DisplayMember = "Key";
             priorityComboBox.ValueMember = "Value";
             priorityComboBox.SelectedItem = ProcessPriority.First(s => s.Value == WorkingProfile.AppPriority);
             noiseFloorSensitivityControl.SetMonitoringDevice(MonitoringDevice);
-            noiseFloorSensitivityControl.SetValue(WorkingProfile.ActiveListenerFormat.SlienceLevel);
+            noiseFloorSensitivityControl.SetValue(WorkingProfile.ListenerFormat.SilenceLevel);
             activeLevelSensitivityControl.SetMonitoringDevice(MonitoringDevice);
-            activeLevelSensitivityControl.SetValue(WorkingProfile.ActiveListenerFormat.ActiveLevel);
+            activeLevelSensitivityControl.SetValue(WorkingProfile.ListenerFormat.ActiveLevel);
         }
 
         private bool SaveProfile() {

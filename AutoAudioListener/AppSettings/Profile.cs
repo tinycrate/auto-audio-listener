@@ -16,14 +16,14 @@ namespace AutoAudioListener.AppSettings {
             get {
                 var profile = new Profile();
                 profile.Name = "Default";
-                profile.ActiveListenerFormat = ActiveAudioListenerFormat.Default;
+                profile.ListenerFormat = AudioListenerFormat.Default;
                 profile.AppPriority = ProcessPriorityClass.AboveNormal;
                 return profile;
             }
         }
 
         public string Name { get; set; }
-        public ActiveAudioListenerFormat ActiveListenerFormat { get; set; }
+        public AudioListenerFormat ListenerFormat { get; set; }
         public ProcessPriorityClass AppPriority { get; set; }
     }
 }

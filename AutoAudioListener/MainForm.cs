@@ -1,47 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using NAudio.CoreAudioApi;
+using AutoAudioListener.AppSettings;
 using AutoAudioListener.Audio;
+using AutoAudioListener.Properties;
 using AutoAudioListener.Utils;
 using AutoAudioListener.Utils.Debug;
-using AutoAudioListener.Controls;
-using AutoAudioListener.AppSettings;
-using System.Diagnostics;
+using NAudio.CoreAudioApi;
+using NAudio.Wave;
 
 namespace AutoAudioListener {
     public partial class MainForm : Form {
+        private AudioListener _mainaudioListener;
 
-        private static void CheckRunningEnvironment() {
-            using (var devices = new NAudio.CoreAudioApi.MMDeviceEnumerator()) {
-                if (devices.HasDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia) &&
-                    devices.HasDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia)) return;
-                MessageBox.Show("No audio recording or playback found on this device. The application will now exit.", "Critical Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
-            }
-        }
-
-        private ActiveAudioListener _mainaudioListener;
-        private ActiveAudioListener MainAudioListener {
-            get {
-                return _mainaudioListener;
-            }
-            set {
-                if (_mainaudioListener != null) {
-                    _mainaudioListener.Dispose();
-                }
-                _mainaudioListener = value;
-            }
-        }
-
-        public TimestampMessageLogger EventHistory { get; set; } = new TimestampMessageLogger("hh:mm:ss:fff");
-        
         public MainForm() {
             CheckRunningEnvironment();
             InitializeComponent();
@@ -51,69 +25,98 @@ namespace AutoAudioListener {
             RestoreSelectedProfileFromPreferences();
             RestoreSelectedDevicesFromProfile();
         }
-        
+
+        private AudioListener MainAudioListener {
+            get => _mainaudioListener;
+            set {
+                if (_mainaudioListener != null) {
+                    _mainaudioListener.Dispose();
+                }
+                _mainaudioListener = value;
+            }
+        }
+
+        public SimpleMessageLogger EventHistory { get; set; } = new SimpleMessageLogger("hh:mm:ss:fff");
+
+        private static void CheckRunningEnvironment() {
+            using (var devices = new MMDeviceEnumerator()) {
+                if (devices.HasDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia) &&
+                    devices.HasDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia)) {
+                    return;
+                }
+                MessageBox.Show(
+                    "No audio recording or playback found on this device. The application will now exit.",
+                    "Critical Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                Environment.Exit(1);
+            }
+        }
+
         private void SetUpIcons() {
             var icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            this.Icon = icon;
+            Icon = icon;
             trayIcon.Icon = icon;
         }
 
         private void RestoreFormPositionFromPreferences() {
-            var lastFormPosition = new Point(Properties.Settings.Default.LastMainFormPosX, Properties.Settings.Default.LastMainFormPosY);
+            var lastFormPosition = new Point(Settings.Default.LastMainFormPosX, Settings.Default.LastMainFormPosY);
             if (!IsOnScreen(lastFormPosition)) return;
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = lastFormPosition;
+            StartPosition = FormStartPosition.Manual;
+            Location = lastFormPosition;
         }
 
         private void UpdateFormPositionPreferences() {
-            if (this.Location.X >= 0 && this.Location.Y >= 0) {
-                Properties.Settings.Default.LastMainFormPosX = this.Location.X;
-                Properties.Settings.Default.LastMainFormPosY = this.Location.Y;
+            if (Location.X >= 0 && Location.Y >= 0) {
+                Settings.Default.LastMainFormPosX = Location.X;
+                Settings.Default.LastMainFormPosY = Location.Y;
             }
         }
 
         private void UpdateAndSaveFormPositionPreferences() {
             UpdateFormPositionPreferences();
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void RestoreSelectedProfileFromPreferences() {
-            string selectedProfileID = Properties.Settings.Default.SelectedProfileID;
-            int profileIndex = CustomProfile.EnumerateProfiles().ToList().FindIndex(profile => profile.Id == selectedProfileID);
-            if (profileIndex >= 0) profileComboBox.SelectedIndex = profileIndex; 
+            var selectedProfileID = Settings.Default.SelectedProfileID;
+            var profileIndex = CustomProfile.EnumerateProfiles().ToList()
+                .FindIndex(profile => profile.Id == selectedProfileID);
+            if (profileIndex >= 0) profileComboBox.SelectedIndex = profileIndex;
         }
 
         private void SaveSelectedProfileToPreferences() {
-            Properties.Settings.Default.SelectedProfileID = ((CustomProfile)profileComboBox.SelectedItem).Id;
-            Properties.Settings.Default.Save();
+            Settings.Default.SelectedProfileID = ((CustomProfile) profileComboBox.SelectedItem).Id;
+            Settings.Default.Save();
         }
 
         private void RestoreSelectedDevicesFromProfile() {
-            string inputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.InputDeviceID;
-            string outputDeviceID = ((Profile)profileComboBox.SelectedItem).ActiveListenerFormat.OutputDeviceID;
-            var inputDevices = (List<MMDevice>)inputDeviceComboBox.DataSource;
-            var outputDevices = (List<MMDevice>)outputDeviceComboBox.DataSource;
-            int inputDeviceIndex = inputDevices.FindIndex(device => device.ID == inputDeviceID);
-            int outputDeviceIndex = outputDevices.FindIndex(device => device.ID == outputDeviceID);
+            var inputDeviceID = ((Profile) profileComboBox.SelectedItem).ListenerFormat.InputDeviceID;
+            var outputDeviceID = ((Profile) profileComboBox.SelectedItem).ListenerFormat.OutputDeviceID;
+            var inputDevices = (List<MMDevice>) inputDeviceComboBox.DataSource;
+            var outputDevices = (List<MMDevice>) outputDeviceComboBox.DataSource;
+            var inputDeviceIndex = inputDevices.FindIndex(device => device.ID == inputDeviceID);
+            var outputDeviceIndex = outputDevices.FindIndex(device => device.ID == outputDeviceID);
             if (inputDeviceIndex >= 0) inputDeviceComboBox.SelectedIndex = inputDeviceIndex;
             if (outputDeviceIndex >= 0) outputDeviceComboBox.SelectedIndex = outputDeviceIndex;
         }
 
         private void SetupAutostart() {
             LogEventHistory("App successfully launched at Windows startup!");
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
             StartListening();
         }
 
-        private void SaveListenerFormatToProfile(ActiveAudioListenerFormat format) {
-            var profile = (CustomProfile)profileComboBox.SelectedItem;
-            profile.ActiveListenerFormat = format;
+        private void SaveListenerFormatToProfile(AudioListenerFormat format) {
+            var profile = (CustomProfile) profileComboBox.SelectedItem;
+            profile.ListenerFormat = format;
             profile.SaveChanges();
         }
 
         private bool IsOnScreen(Point lastFormPosition) {
-            foreach (Screen screen in Screen.AllScreens) {
-                Rectangle formTopLeftArea = new Rectangle(lastFormPosition, new Size(30, 30));
+            foreach (var screen in Screen.AllScreens) {
+                var formTopLeftArea = new Rectangle(lastFormPosition, new Size(30, 30));
                 if (screen.WorkingArea.Contains(formTopLeftArea)) {
                     return true;
                 }
@@ -122,13 +125,13 @@ namespace AutoAudioListener {
         }
 
         private void SetUpAudioListener() {
-            var profile = (Profile)profileComboBox.SelectedItem;
-            var inputDevice = (MMDevice)inputDeviceComboBox.SelectedItem;
-            var outputDevice = (MMDevice)outputDeviceComboBox.SelectedItem;
-            var activeListenerFormat = profile.ActiveListenerFormat;
+            var profile = (Profile) profileComboBox.SelectedItem;
+            var inputDevice = (MMDevice) inputDeviceComboBox.SelectedItem;
+            var outputDevice = (MMDevice) outputDeviceComboBox.SelectedItem;
+            var activeListenerFormat = profile.ListenerFormat;
             activeListenerFormat.InputDeviceID = inputDevice.ID;
             activeListenerFormat.OutputDeviceID = outputDevice.ID;
-            MainAudioListener = new ActiveAudioListener(activeListenerFormat, this);
+            MainAudioListener = new AudioListener(activeListenerFormat, this);
             Process.GetCurrentProcess().PriorityClass = profile.AppPriority;
             LogListeningStatus(profile, inputDevice, outputDevice, activeListenerFormat);
             SubscribeListenerEvents();
@@ -136,16 +139,21 @@ namespace AutoAudioListener {
             SaveSelectedProfileToPreferences();
         }
 
-        private void LogListeningStatus(Profile profile, MMDevice inputDevice, MMDevice outputDevice, ActiveAudioListenerFormat activeListenerFormat) {
-            LogEventHistory($"Main Audio Listener is set using profile { profile.Name }:");
-            LogEventHistory($"  >Input device: { inputDevice.FriendlyName }");
-            LogEventHistory($"  >Output device: { outputDevice.FriendlyName }");
-            LogEventHistory($"  >Preferred Input Latency: { activeListenerFormat.PreferredInputLatency }");
-            LogEventHistory($"  >Preferred Output Latency: { activeListenerFormat.PreferredOutputLatency }");
-            LogEventHistory($"  >Slience Level:  { activeListenerFormat.SlienceLevel }");
-            LogEventHistory($"  >Active Level: { activeListenerFormat.ActiveLevel }");
-            LogEventHistory($"  >Active Timeout Milliseconds: { activeListenerFormat.ActiveTimeoutMilliseconds }");
-            LogEventHistory($"  >Process Pirority: { profile.AppPriority.ToString() }");
+        private void LogListeningStatus(
+            Profile profile,
+            MMDevice inputDevice,
+            MMDevice outputDevice,
+            AudioListenerFormat listenerFormat
+        ) {
+            LogEventHistory($"Main Audio Listener is set using profile {profile.Name}:");
+            LogEventHistory($"  >Input device: {inputDevice.FriendlyName}");
+            LogEventHistory($"  >Output device: {outputDevice.FriendlyName}");
+            LogEventHistory($"  >Preferred Input Latency: {listenerFormat.PreferredInputLatency}");
+            LogEventHistory($"  >Preferred Output Latency: {listenerFormat.PreferredOutputLatency}");
+            LogEventHistory($"  >Slience Level:  {listenerFormat.SilenceLevel}");
+            LogEventHistory($"  >Active Level: {listenerFormat.ActiveLevel}");
+            LogEventHistory($"  >Active Timeout Milliseconds: {listenerFormat.ActiveTimeoutMilliseconds}");
+            LogEventHistory($"  >Process Pirority: {profile.AppPriority.ToString()}");
         }
 
         private void SubscribeListenerEvents() {
@@ -179,7 +187,8 @@ namespace AutoAudioListener {
 
         private void BindProfileList() {
             profileComboBox.DataSource = null;
-            profileComboBox.DataSource = CustomProfile.EnumerateProfiles().OrderByDescending(x=>x.DateModified).ToList();
+            profileComboBox.DataSource =
+                CustomProfile.EnumerateProfiles().OrderByDescending(x => x.DateModified).ToList();
             profileComboBox.DisplayMember = "Name";
         }
 
@@ -200,7 +209,7 @@ namespace AutoAudioListener {
             MainAudioListener.StopListening();
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
             startStopListeningButton.Text = "Start Listening";
-            LogEventHistory($"Listening stopped.");
+            LogEventHistory("Listening stopped.");
             UpdateStatusBar("Listening stopped.");
         }
 
@@ -215,7 +224,7 @@ namespace AutoAudioListener {
         }
 
         private void OpenEditForm() {
-            var profile = (CustomProfile)profileComboBox.SelectedItem;
+            var profile = (CustomProfile) profileComboBox.SelectedItem;
             var editForm = new ProfileEditForm(profile);
             editForm.ShowDialog();
         }
@@ -244,20 +253,21 @@ namespace AutoAudioListener {
         }
 
         private void MainAudioListener_OutputVolumeUpdated(object sender, EventArgs e) {
-            float currentSourceVolumeLeft = MainAudioListener.CurrentSourceVolumeLeft;
-            float currentSourceVolumeRight = MainAudioListener.CurrentSourceVolumeRight;
-            leftVolumeBar.Value = (int)(currentSourceVolumeLeft * 1000);
-            rightVolumeBar.Value = (int)(currentSourceVolumeRight * 1000);
+            var currentSourceVolumeLeft = MainAudioListener.CurrentSourceVolumeLeft;
+            var currentSourceVolumeRight = MainAudioListener.CurrentSourceVolumeRight;
+            leftVolumeBar.Value = (int) (currentSourceVolumeLeft * 1000);
+            rightVolumeBar.Value = (int) (currentSourceVolumeRight * 1000);
         }
 
-        private void MainAudioListener_OutputVolumeChanged(object sender, EventArgs e) {
-        }
+        private void MainAudioListener_OutputVolumeChanged(object sender, EventArgs e) { }
 
         private void MainAudioListener_BufferVolumeTriggered(object sender, EventArgs e) {
-            LogEventHistory($"Buffer volume triggered at source volume {MainAudioListener.CurrentSourceVolume}. Fading output volume to {MainAudioListener.CurrentOutputVolume}.");
+            LogEventHistory(
+                $"Buffer volume triggered at source volume {MainAudioListener.CurrentSourceVolume}. Fading output volume to {MainAudioListener.CurrentOutputVolume}."
+            );
         }
 
-        private void MainAudioListener_ListeningStopped(object sender, NAudio.Wave.StoppedEventArgs e) {
+        private void MainAudioListener_ListeningStopped(object sender, StoppedEventArgs e) {
             ResetVolumeControls();
         }
 
@@ -266,17 +276,17 @@ namespace AutoAudioListener {
         }
 
         private void MainForm_Resize(object sender, EventArgs e) {
-            if (FormWindowState.Minimized == this.WindowState) {
-                this.Hide();
+            if (FormWindowState.Minimized == WindowState) {
+                Hide();
             }
         }
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
-            if (FormWindowState.Minimized == this.WindowState) {
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
+            if (FormWindowState.Minimized == WindowState) {
+                Show();
+                WindowState = FormWindowState.Normal;
             } else {
-                this.WindowState = FormWindowState.Minimized;
+                WindowState = FormWindowState.Minimized;
             }
         }
 
@@ -309,12 +319,12 @@ namespace AutoAudioListener {
             UpdateAndSaveFormPositionPreferences();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {          
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
 
         private void addProfileButton_Click(object sender, EventArgs e) {
-            string newProfileId = CustomProfile.NewProfileFromDefault().Id;
+            var newProfileId = CustomProfile.NewProfileFromDefault().Id;
             BindProfileList();
             profileComboBox.SelectedItem = profileComboBox.Items.Cast<CustomProfile>().First(x => x.Id == newProfileId);
             profileComboBox.Focus();
@@ -326,9 +336,9 @@ namespace AutoAudioListener {
         }
 
         private void deleteProfileButton_Click(object sender, EventArgs e) {
-            CustomProfile.DeleteProfile((CustomProfile)profileComboBox.SelectedItem);
+            CustomProfile.DeleteProfile((CustomProfile) profileComboBox.SelectedItem);
             if (profileComboBox.Items.Count <= 1) {
-                CustomProfile.CreateDefaultProfile();   
+                CustomProfile.CreateDefaultProfile();
             }
             BindProfileList();
         }

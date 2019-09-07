@@ -161,10 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings\Profile.cs" />
-    <Compile Include="Audio\ActiveAudioListener.cs" />
-    <Compile Include="Audio\ActiveAudioListenerFormat.cs" />
     <Compile Include="Audio\AudioListener.cs" />
     <Compile Include="Audio\AudioListenerFormat.cs" />
+    <Compile Include="Audio\BaseAudioListener.cs" />
+    <Compile Include="Audio\IBaseAudioListenerFormat.cs" />
     <Compile Include="Controls\AutomaticScrollingListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -204,7 +204,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\AutoStartup.cs" />
     <Compile Include="Utils\Debug\SimpleMessageLogger.cs" />
-    <Compile Include="Utils\Debug\TimestampMessageLogger.cs" />
     <EmbeddedResource Include="Controls\VolumeSensitivityControl.resx">
       <DependentUpon>VolumeSensitivityControl.cs</DependentUpon>
     </EmbeddedResource>

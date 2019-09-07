@@ -1,122 +1,126 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
 
 namespace AutoAudioListener.Audio {
-    public class AudioListener : IDisposable {
+    public class AudioListener : BaseAudioListener {
 
-        private MMDevice inputDevice;
-        private MMDevice outputDevice;
-        private WasapiCapture inputStream;
-        private WasapiOut outputStream;
-        private VolumeSampleProvider volumeControl;
-
-        public AudioListener(AudioListenerFormat listenerFormat) {
-            this.Format = listenerFormat;
-            InitializeDevices();
-            InitializeInputStream();
-            InitializeVolumeControl();
-            InitializeOutputStream();
+        public AudioListener(AudioListenerFormat listenerFormat, ISynchronizeInvoke synchronizingObject) : base(listenerFormat) {
+            MuteAudio();
+            InitializeTimer(synchronizingObject);
         }
 
-        public AudioListenerFormat Format { get; }
-        public bool Listening {
+        public event EventHandler AudioActivated;
+        public event EventHandler AudioDeactivated;
+        public event EventHandler BufferVolumeTriggered;
+        public event EventHandler OutputVolumeUpdated;
+        public event EventHandler OutputVolumeChanged;
+
+        public new AudioListenerFormat Format {
             get {
-                return inputStream.CaptureState == CaptureState.Capturing;
+                return (AudioListenerFormat)base.Format;
             }
         }
-        public float CurrentOutputVolume {
+        public bool AudioActive { get; private set; } = false;
+        public DateTime LastActiveTime { get; private set; } = DateTime.Now;
+
+        private System.Timers.Timer timer;
+
+        private bool ActiveAudioExpired {
             get {
-                return volumeControl.Volume;
-            }
-            set {
-                volumeControl.Volume = value;
-            }
-        }
-        public float CurrentSourceVolume {
-            get {
-                return inputDevice.AudioMeterInformation.MasterPeakValue;
+                return DateTime.Now.Subtract(LastActiveTime).TotalMilliseconds > Format.ActiveTimeoutMilliseconds;
             }
         }
-        public float CurrentSourceVolumeLeft {
-            get {
-                int channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
-                if (channelCount >= 1 && channelCount <= 2) {
-                    return inputDevice.AudioMeterInformation.PeakValues[0];
+
+        public override void StartListening() {
+            base.StartListening();
+            timer.Start();
+        }
+
+        public override void StopListening() {
+            base.StopListening();
+            timer.Stop();
+            MuteAudio();
+        }
+
+        public override void Dispose() {
+            base.Dispose();
+            timer.Dispose();
+        }
+
+        private void InitializeTimer(ISynchronizeInvoke synchronizingObject) {
+            timer = new System.Timers.Timer(1) {
+                SynchronizingObject = synchronizingObject
+            };
+            timer.Elapsed += Timer_Elapsed;
+        }
+
+        private void UpdateOutputVolume() {
+            float sourceVolume = CurrentSourceVolume;
+            float outputVolume = CurrentOutputVolume;
+            if (AudioActive) {
+                if (ActiveAudioExpired && sourceVolume < Format.ActiveLevel) {
+                    DeactivateAudio();
                 } else {
-                    throw new NotImplementedException("Audio Listerner:: Audio streams other than mono or stereo are currently not supported.");
+                    AudioFadein();
+                    if (sourceVolume > Format.ActiveLevel) KeepAudioAlive();
+                }
+            } 
+            else {
+                if (sourceVolume < Format.SilenceLevel) {
+                    AudioFadeout();
+                } else if (sourceVolume < Format.ActiveLevel) {
+                    TriggerBufferVolume(sourceVolume);
+                } else {
+                    ActivateAudio();
                 }
             }
-        }
-        public float CurrentSourceVolumeRight {
-            get {
-                int channelCount = inputDevice.AudioMeterInformation.PeakValues.Count;
-                if (channelCount == 2) {
-                    return inputDevice.AudioMeterInformation.PeakValues[1];
-                } else if (channelCount == 1) { // Mono stream
-                    return inputDevice.AudioMeterInformation.PeakValues[0];
-                } else {
-                    throw new NotImplementedException("Audio Listerner:: Audio streams other than mono or stereo are currently not supported.");
-                }
-            }
-        }
-        public event EventHandler<StoppedEventArgs> ListeningStopped {
-            add {
-                inputStream.RecordingStopped += value;
-            }
-            remove {
-                inputStream.RecordingStopped -= value;
-            }
+            if (outputVolume != CurrentOutputVolume) OutputVolumeChanged?.Invoke(this, EventArgs.Empty);
+            if (timer.Enabled) OutputVolumeUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void StartListening() {
-            outputStream.Play();
-            inputStream.StartRecording();
+        private void ActivateAudio() {
+            CurrentOutputVolume = Math.Max(CurrentOutputVolume, 0.01f);
+            AudioActive = true;
+            LastActiveTime = DateTime.Now;
+            AudioActivated?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void StopListening() {
-            outputStream.Stop();
-            inputStream.StopRecording();
+        private void KeepAudioAlive() {
+            LastActiveTime = DateTime.Now;
         }
 
-        public virtual void Dispose() {
-            inputStream.Dispose();
-            outputStream.Dispose();
-            inputDevice.Dispose();
-            outputDevice.Dispose();
+        private void DeactivateAudio() {
+            AudioActive = false;
+            AudioDeactivated?.Invoke(this, EventArgs.Empty);
         }
 
-        private void InitializeDevices() {
-            using (var devices = new MMDeviceEnumerator()) {
-                inputDevice = devices.GetDevice(Format.InputDeviceID);
-                outputDevice = devices.GetDevice(Format.OutputDeviceID);
-            }
+        private void AudioFadein() {
+            CurrentOutputVolume = Math.Min(1, CurrentOutputVolume * 2f);
         }
 
-        private void InitializeInputStream() {
-            inputStream = new WasapiCapture(inputDevice, false, Format.PreferredInputLatency);
-        }
-
-        private void InitializeVolumeControl() {
-            var inputStreamProvider = new WaveInProvider(inputStream);
-            ISampleProvider inputStreamSampleProvider;
-            if (inputStreamProvider.WaveFormat.BitsPerSample == 64) {
-                inputStreamSampleProvider = new WaveToSampleProvider64(inputStreamProvider);
+        private void AudioFadeout() {
+            if (CurrentOutputVolume > 0.001) {
+                CurrentOutputVolume /= 1.1f;
             } else {
-                inputStreamSampleProvider = new WaveToSampleProvider(inputStreamProvider);
+                CurrentOutputVolume = 0;
             }
-            volumeControl = new VolumeSampleProvider(inputStreamSampleProvider);
         }
 
-        private void InitializeOutputStream() {
-            outputStream = new WasapiOut(outputDevice, AudioClientShareMode.Shared, false, Format.PreferredOutputLatency);
-            var convertedInputStreamProvider = new SampleToWaveProvider(volumeControl);
-            outputStream.Init(convertedInputStreamProvider);
+        private void MuteAudio() {
+            CurrentOutputVolume = 0;
+        }
+
+        private void TriggerBufferVolume(float volume) {
+            CurrentOutputVolume = (volume - Format.SilenceLevel) / (Format.ActiveLevel - Format.SilenceLevel);
+            BufferVolumeTriggered?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
+            UpdateOutputVolume();
         }
     }
 }

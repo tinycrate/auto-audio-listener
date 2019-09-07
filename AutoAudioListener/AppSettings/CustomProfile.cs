@@ -21,7 +21,7 @@ namespace AutoAudioListener.AppSettings {
             if (!EnumerateProfiles().Any()) {
                 CreateDefaultProfile();
             }    
-        }    
+        }
 
         public static IEnumerable<CustomProfile> EnumerateProfiles() {
             if (!Directory.Exists(UserProfilePath)) yield break;
@@ -40,10 +40,10 @@ namespace AutoAudioListener.AppSettings {
             }
         }
 
-        public static CustomProfile NewProfile(string name, ActiveAudioListenerFormat activeListenerFormat, ProcessPriorityClass appPriority) {
+        public static CustomProfile NewProfile(string name, AudioListenerFormat listenerFormat, ProcessPriorityClass appPriority) {
             CustomProfile profile = new CustomProfile();
             profile.Name = name;
-            profile.ActiveListenerFormat = activeListenerFormat;
+            profile.ListenerFormat = listenerFormat;
             profile.AppPriority = appPriority;
             UpdateProfile(profile);
             return profile;
@@ -55,11 +55,11 @@ namespace AutoAudioListener.AppSettings {
             while (profileNames.Contains(NewProfileName + profileSuffix)) {
                 profileSuffix++;
             }
-            return NewProfile(NewProfileName + profileSuffix, Default.ActiveListenerFormat, Default.AppPriority);
+            return NewProfile(NewProfileName + profileSuffix, Default.ListenerFormat, Default.AppPriority);
         }
 
         public static CustomProfile CreateDefaultProfile() {
-            return NewProfile(Default.Name, Default.ActiveListenerFormat, Default.AppPriority);
+            return NewProfile(Default.Name, Default.ListenerFormat, Default.AppPriority);
         }
 
         public static void UpdateProfile(CustomProfile profile) {
@@ -134,10 +134,10 @@ namespace AutoAudioListener.AppSettings {
         }
 
         public bool ValidateData() {
-            if (ActiveListenerFormat.SlienceLevel >= 0 && ActiveListenerFormat.SlienceLevel <= 1 &&
-                ActiveListenerFormat.ActiveLevel >= 0 && ActiveListenerFormat.ActiveLevel <= 1 &&
-                ActiveListenerFormat.PreferredInputLatency > 0 && ActiveListenerFormat.PreferredOutputLatency > 0 &&
-                ActiveListenerFormat.ActiveLevel >= ActiveListenerFormat.SlienceLevel
+            if (ListenerFormat.SilenceLevel >= 0 && ListenerFormat.SilenceLevel <= 1 &&
+                ListenerFormat.ActiveLevel >= 0 && ListenerFormat.ActiveLevel <= 1 &&
+                ListenerFormat.PreferredInputLatency > 0 && ListenerFormat.PreferredOutputLatency > 0 &&
+                ListenerFormat.ActiveLevel >= ListenerFormat.SilenceLevel
                 ) {
                 return true;
             } else {
@@ -146,7 +146,7 @@ namespace AutoAudioListener.AppSettings {
         }
 
         public void CopySettingsFrom(Profile profile) {
-            this.ActiveListenerFormat = profile.ActiveListenerFormat;
+            this.ListenerFormat = profile.ListenerFormat;
             this.AppPriority = profile.AppPriority;
         }
 
